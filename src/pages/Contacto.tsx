@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { trackFormSubmit, trackWhatsAppClick } from "@/lib/analytics";
 
 const Contacto = () => {
   const { toast } = useToast();
@@ -19,6 +20,10 @@ const Contacto = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Track form submission
+    trackFormSubmit('contact_form');
+    trackWhatsAppClick('contact_form');
     
     // Create WhatsApp message
     const whatsappMessage = `Hola! Mi nombre es ${formData.name}.

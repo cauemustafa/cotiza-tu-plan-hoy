@@ -11,12 +11,14 @@ import Contacto from "./pages/Contacto";
 import PoliticaPrivacidad from "./pages/PoliticaPrivacidad";
 import TerminosCondiciones from "./pages/TerminosCondiciones";
 import NotFound from "./pages/NotFound";
+import GoogleAnalytics from "./components/shared/GoogleAnalytics";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
+      <GoogleAnalytics />
       <Toaster />
       <Sonner />
       <BrowserRouter>
