@@ -1,10 +1,23 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check, Phone, Users } from "lucide-react";
+import { Phone, Users } from "lucide-react";
+import ComparisonTable from "@/components/shared/ComparisonTable";
+import PymeCalculator from "@/components/pyme/PymeCalculator";
+import { pymePlans, pymeFeatures } from "@/data/plans";
+import { toast } from "sonner";
 
 const SegurosPyme = () => {
+  const handleSelectPlan = (planIndex: number) => {
+    const planName = pymePlans[planIndex].name;
+    toast.success(`Plan ${planName} seleccionado`, {
+      description: "Serás redirigido a WhatsApp para completar tu cotización empresarial"
+    });
+    setTimeout(() => {
+      window.open("https://wa.me/56928360499", "_blank");
+    }, 1500);
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -23,101 +36,24 @@ const SegurosPyme = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-              <Card className="shadow-card">
-                <CardHeader>
-                  <CardTitle className="text-2xl">Plan Empresa 1</CardTitle>
-                  <CardDescription>Ideal para equipos pequeños (2-10 personas)</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <ul className="space-y-2">
-                    {["Consultas médicas ilimitadas", "Hospitalización completa", "Urgencias 24/7", "Red de clínicas amplia"].map((item) => (
-                      <li key={item} className="flex items-center gap-2">
-                        <Check className="h-5 w-5 text-accent flex-shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <a href="https://wa.me/56928360499" target="_blank" rel="noopener noreferrer" className="block">
-                    <Button className="w-full">
-                      <Phone className="mr-2 h-4 w-4" />
-                      Cotizar Plan
-                    </Button>
-                  </a>
-                </CardContent>
-              </Card>
+            {/* Calculator Section */}
+            <div className="mb-16">
+              <h2 className="text-3xl font-bold text-center mb-8">
+                Calcula tu Plan Empresarial
+              </h2>
+              <PymeCalculator />
+            </div>
 
-              <Card className="shadow-card border-2 border-accent">
-                <CardHeader>
-                  <div className="inline-block px-3 py-1 bg-accent text-accent-foreground text-xs font-semibold rounded-full mb-2">
-                    RECOMENDADO
-                  </div>
-                  <CardTitle className="text-2xl">Plan Empresa 2</CardTitle>
-                  <CardDescription>Para empresas en crecimiento (11-25 personas)</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <ul className="space-y-2">
-                    {["Todo del Plan 1", "Dental incluido", "Exámenes preventivos", "Atención domiciliaria"].map((item) => (
-                      <li key={item} className="flex items-center gap-2">
-                        <Check className="h-5 w-5 text-accent flex-shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <a href="https://wa.me/56928360499" target="_blank" rel="noopener noreferrer" className="block">
-                    <Button className="w-full gradient-accent">
-                      <Phone className="mr-2 h-4 w-4" />
-                      Cotizar Plan
-                    </Button>
-                  </a>
-                </CardContent>
-              </Card>
-
-              <Card className="shadow-card">
-                <CardHeader>
-                  <CardTitle className="text-2xl">Plan Empresa 3</CardTitle>
-                  <CardDescription>Para empresas establecidas (26-50 personas)</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <ul className="space-y-2">
-                    {["Todo del Plan 2", "Oftalmología completa", "Medicamentos con descuento", "Chequeos anuales"].map((item) => (
-                      <li key={item} className="flex items-center gap-2">
-                        <Check className="h-5 w-5 text-accent flex-shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <a href="https://wa.me/56928360499" target="_blank" rel="noopener noreferrer" className="block">
-                    <Button className="w-full">
-                      <Phone className="mr-2 h-4 w-4" />
-                      Cotizar Plan
-                    </Button>
-                  </a>
-                </CardContent>
-              </Card>
-
-              <Card className="shadow-card">
-                <CardHeader>
-                  <CardTitle className="text-2xl">Plan Empresa 4</CardTitle>
-                  <CardDescription>Para grandes empresas (50+ personas)</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <ul className="space-y-2">
-                    {["Todo del Plan 3", "Programa de bienestar", "Gestor de cuenta dedicado", "Descuentos corporativos"].map((item) => (
-                      <li key={item} className="flex items-center gap-2">
-                        <Check className="h-5 w-5 text-accent flex-shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <a href="https://wa.me/56928360499" target="_blank" rel="noopener noreferrer" className="block">
-                    <Button className="w-full">
-                      <Phone className="mr-2 h-4 w-4" />
-                      Cotizar Plan
-                    </Button>
-                  </a>
-                </CardContent>
-              </Card>
+            {/* Comparison Table */}
+            <div className="mb-16">
+              <h2 className="text-3xl font-bold text-center mb-8">
+                Compara Nuestros Planes Corporativos
+              </h2>
+              <ComparisonTable 
+                plans={pymePlans}
+                features={pymeFeatures}
+                onSelectPlan={handleSelectPlan}
+              />
             </div>
 
             <div className="bg-card p-8 rounded-lg shadow-card text-center">

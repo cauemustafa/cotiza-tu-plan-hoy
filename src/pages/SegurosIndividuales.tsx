@@ -1,10 +1,22 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check, Phone } from "lucide-react";
+import { Phone } from "lucide-react";
+import ComparisonTable from "@/components/shared/ComparisonTable";
+import { individualPlans, individualFeatures } from "@/data/plans";
+import { toast } from "sonner";
 
 const SegurosIndividuales = () => {
+  const handleSelectPlan = (planIndex: number) => {
+    const planName = individualPlans[planIndex].name;
+    toast.success(`Plan ${planName} seleccionado`, {
+      description: "Serás redirigido a WhatsApp para completar tu cotización"
+    });
+    setTimeout(() => {
+      window.open("https://wa.me/56928360499", "_blank");
+    }, 1500);
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -16,115 +28,33 @@ const SegurosIndividuales = () => {
                 Seguros de Salud Individuales
               </h1>
               <p className="text-xl text-muted-foreground">
-                4 Planes Bupa diseñados para proteger tu salud y la de tu familia
+                Compara y elige el plan Bupa perfecto para ti y tu familia
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-              <Card className="shadow-card">
-                <CardHeader>
-                  <CardTitle className="text-2xl">Plan Básico</CardTitle>
-                  <CardDescription>Protección esencial para tu salud</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <ul className="space-y-2">
-                    {["Consultas médicas", "Exámenes básicos", "Hospitalización", "Urgencias 24/7"].map((item) => (
-                      <li key={item} className="flex items-center gap-2">
-                        <Check className="h-5 w-5 text-primary flex-shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <a href="https://wa.me/56928360499" target="_blank" rel="noopener noreferrer" className="block">
-                    <Button className="w-full">
-                      <Phone className="mr-2 h-4 w-4" />
-                      Cotizar Plan
-                    </Button>
-                  </a>
-                </CardContent>
-              </Card>
-
-              <Card className="shadow-card">
-                <CardHeader>
-                  <CardTitle className="text-2xl">Plan Intermedio</CardTitle>
-                  <CardDescription>Cobertura completa para tu tranquilidad</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <ul className="space-y-2">
-                    {["Todo del Plan Básico", "Especialistas", "Exámenes avanzados", "Medicamentos"].map((item) => (
-                      <li key={item} className="flex items-center gap-2">
-                        <Check className="h-5 w-5 text-primary flex-shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <a href="https://wa.me/56928360499" target="_blank" rel="noopener noreferrer" className="block">
-                    <Button className="w-full">
-                      <Phone className="mr-2 h-4 w-4" />
-                      Cotizar Plan
-                    </Button>
-                  </a>
-                </CardContent>
-              </Card>
-
-              <Card className="shadow-card border-2 border-primary">
-                <CardHeader>
-                  <div className="inline-block px-3 py-1 bg-primary text-primary-foreground text-xs font-semibold rounded-full mb-2">
-                    MÁS POPULAR
-                  </div>
-                  <CardTitle className="text-2xl">Plan Avanzado</CardTitle>
-                  <CardDescription>La mejor protección para tu familia</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <ul className="space-y-2">
-                    {["Todo del Plan Intermedio", "Dental incluido", "Oftalmología", "Medicina preventiva"].map((item) => (
-                      <li key={item} className="flex items-center gap-2">
-                        <Check className="h-5 w-5 text-primary flex-shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <a href="https://wa.me/56928360499" target="_blank" rel="noopener noreferrer" className="block">
-                    <Button className="w-full gradient-primary">
-                      <Phone className="mr-2 h-4 w-4" />
-                      Cotizar Plan
-                    </Button>
-                  </a>
-                </CardContent>
-              </Card>
-
-              <Card className="shadow-card">
-                <CardHeader>
-                  <CardTitle className="text-2xl">Plan Premium</CardTitle>
-                  <CardDescription>Cobertura total sin límites</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <ul className="space-y-2">
-                    {["Todo del Plan Avanzado", "Sin copago", "Red internacional", "Asistencia prioritaria"].map((item) => (
-                      <li key={item} className="flex items-center gap-2">
-                        <Check className="h-5 w-5 text-primary flex-shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <a href="https://wa.me/56928360499" target="_blank" rel="noopener noreferrer" className="block">
-                    <Button className="w-full">
-                      <Phone className="mr-2 h-4 w-4" />
-                      Cotizar Plan
-                    </Button>
-                  </a>
-                </CardContent>
-              </Card>
+            {/* Comparison Table */}
+            <div className="mb-16">
+              <h2 className="text-3xl font-bold text-center mb-8">
+                Compara Nuestros Planes
+              </h2>
+              <ComparisonTable 
+                plans={individualPlans}
+                features={individualFeatures}
+                onSelectPlan={handleSelectPlan}
+              />
             </div>
 
-            <div className="text-center">
-              <p className="text-muted-foreground mb-4">
+            <div className="text-center bg-card p-8 rounded-lg shadow-card">
+              <h3 className="text-2xl font-bold mb-4">
                 ¿No estás seguro cuál plan es mejor para ti?
+              </h3>
+              <p className="text-muted-foreground mb-6">
+                Nuestros asesores están listos para ayudarte a encontrar la cobertura perfecta
               </p>
               <a href="https://wa.me/56928360499" target="_blank" rel="noopener noreferrer">
                 <Button size="lg" className="gradient-primary">
                   <Phone className="mr-2 h-5 w-5" />
-                  Habla con un Asesor
+                  Habla con un Asesor Gratis
                 </Button>
               </a>
             </div>
