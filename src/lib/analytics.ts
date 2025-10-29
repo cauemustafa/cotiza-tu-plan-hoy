@@ -1,6 +1,6 @@
 // Google Analytics tracking functions
-
-export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID || '';
+// Replace 'G-XXXXXXXXXX' with your actual GA4 Measurement ID
+export const GA_TRACKING_ID = 'G-XXXXXXXXXX';
 
 // Track page views
 export const pageview = (url: string) => {
