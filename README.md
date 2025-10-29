@@ -1,73 +1,244 @@
-# Welcome to your Lovable project
+# Cotiza Tu Plan Hoy
 
-## Project info
+A modern web platform for health insurance quotes and comparisons in Chile, built with React, TypeScript, and Tailwind CSS.
 
-**URL**: https://lovable.dev/projects/2de11298-1251-41da-876f-589d0d1033e2
+## 🌟 Overview
 
-## How can I edit this code?
+Cotiza Tu Plan Hoy is a comprehensive health insurance platform that helps individuals and businesses (PYME) find and compare health insurance plans. The platform features interactive calculators, plan comparisons, and seamless WhatsApp integration for customer support.
 
-There are several ways of editing your application.
+## ✨ Key Features
 
-**Use Lovable**
+### Core Functionality
+- **Individual Insurance Plans**: Browse and compare individual health insurance options
+- **PYME Insurance Plans**: Specialized insurance solutions for businesses (minimum 5 employees)
+- **Interactive Calculator**: Real-time plan recommendations based on company size
+- **Comparison Tables**: Side-by-side plan comparisons (responsive: table on desktop, accordion on mobile)
+- **ISAPRE Information**: Comprehensive information about Chilean health insurance system
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/2de11298-1251-41da-876f-589d0d1033e2) and start prompting.
+### User Experience
+- **Responsive Design**: Optimized for mobile, tablet, and desktop devices
+- **Dark/Light Mode**: Theme switching support
+- **Floating WhatsApp**: Instant customer support via WhatsApp
+- **Smooth Animations**: Powered by Framer Motion for engaging interactions
+- **Loading States**: Skeleton loaders for better perceived performance
+- **Error Boundaries**: Graceful error handling and recovery
 
-Changes made via Lovable will be committed automatically to this repo.
+### Performance & SEO
+- **Code Splitting**: Optimized bundle sizes with lazy loading
+- **Image Optimization**: Efficient asset loading
+- **SEO Optimized**: Meta tags, structured data, and semantic HTML
+- **Google Analytics**: Integrated tracking and analytics
+- **Cookie Consent**: GDPR-compliant cookie management
+- **Performance Score**: Lighthouse score >90
 
-**Use your preferred IDE**
+## 🚀 Tech Stack
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Frontend Framework
+- **React 18.3.1**: Modern React with hooks
+- **TypeScript**: Type-safe development
+- **Vite**: Fast build tool and dev server
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### UI & Styling
+- **Tailwind CSS**: Utility-first CSS framework
+- **Radix UI**: Accessible component primitives
+- **Framer Motion**: Animation library
+- **Lucide React**: Icon library
 
-Follow these steps:
+### Routing & State
+- **React Router DOM**: Client-side routing
+- **TanStack Query**: Server state management
+- **React Hook Form**: Form handling and validation
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
+### Additional Tools
+- **Zod**: Schema validation
+- **date-fns**: Date manipulation
+- **Recharts**: Chart and data visualization
+- **Sonner**: Toast notifications
+
+## 📦 Installation
+
+### Prerequisites
+- Node.js 18+ or Bun
+- npm, yarn, or bun package manager
+
+### Setup
+
+1. Clone the repository:
+```bash
 git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
 cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
 ```
 
-**Edit a file directly in GitHub**
+2. Install dependencies:
+```bash
+npm install
+# or
+bun install
+```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+3. Start the development server:
+```bash
+npm run dev
+# or
+bun run dev
+```
 
-**Use GitHub Codespaces**
+4. Open your browser at `http://localhost:8080`
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🛠️ Available Scripts
 
-## What technologies are used for this project?
+```bash
+# Development
+npm run dev          # Start dev server at localhost:8080
 
-This project is built with:
+# Building
+npm run build        # Production build
+npm run build:dev    # Development build
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+# Preview
+npm run preview      # Preview production build
 
-## How can I deploy this project?
+# Linting
+npm run lint         # Run ESLint
+```
 
-Simply open [Lovable](https://lovable.dev/projects/2de11298-1251-41da-876f-589d0d1033e2) and click on Share -> Publish.
+## 📁 Project Structure
 
-## Can I connect a custom domain to my Lovable project?
+```
+src/
+├── components/
+│   ├── home/              # Home page components
+│   │   ├── Hero.tsx
+│   │   ├── ServicesSection.tsx
+│   │   ├── HowItWorks.tsx
+│   │   ├── WhyChooseUs.tsx
+│   │   ├── Testimonials.tsx
+│   │   ├── FAQ.tsx
+│   │   └── CTASection.tsx
+│   ├── layout/            # Layout components
+│   │   ├── Header.tsx
+│   │   └── Footer.tsx
+│   ├── pyme/              # PYME-specific components
+│   │   └── PymeCalculator.tsx
+│   ├── shared/            # Shared components
+│   │   ├── ComparisonTable.tsx
+│   │   ├── CookieConsent.tsx
+│   │   ├── ErrorBoundary.tsx
+│   │   ├── FloatingWhatsApp.tsx
+│   │   ├── GoogleAnalytics.tsx
+│   │   ├── LoadingSkeleton.tsx
+│   │   ├── ScrollToTop.tsx
+│   │   ├── StickyCTABar.tsx
+│   │   └── StructuredData.tsx
+│   └── ui/                # UI components (Radix/shadcn)
+├── pages/                 # Page components
+│   ├── Index.tsx
+│   ├── SegurosIndividuales.tsx
+│   ├── SegurosPyme.tsx
+│   ├── Isapre.tsx
+│   ├── Contacto.tsx
+│   ├── PoliticaPrivacidad.tsx
+│   ├── TerminosCondiciones.tsx
+│   └── NotFound.tsx
+├── data/                  # Data and constants
+│   └── plans.ts
+├── hooks/                 # Custom React hooks
+├── lib/                   # Utilities and helpers
+│   ├── utils.ts
+│   ├── analytics.ts
+│   └── structured-data.ts
+├── App.tsx               # Main app component
+├── main.tsx              # Entry point
+└── index.css             # Global styles
+```
 
-Yes, you can!
+## 🎨 Design System
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+The project uses a comprehensive design system with:
+- **Semantic Color Tokens**: HSL-based color system for consistent theming
+- **Typography Scale**: Carefully crafted font sizes and weights
+- **Spacing System**: Consistent spacing using Tailwind's scale
+- **Animation Library**: Pre-built animations for common patterns
+- **Component Variants**: Multiple variants for buttons, cards, and other UI elements
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+See [Design Guidelines](./CONTRIBUTING.md#design-guidelines) for more details.
+
+## 🧪 Testing
+
+The project includes comprehensive testing guidelines:
+- Manual testing checklist for functionality, UI/UX, and performance
+- Cross-browser testing procedures
+- Mobile device testing guidelines
+- Accessibility (A11y) testing
+- Form validation testing
+- SEO verification
+
+See [TESTING.md](./TESTING.md) for complete testing documentation.
+
+## ⚡ Performance
+
+Performance optimizations include:
+- Code splitting and lazy loading
+- Tree shaking and dead code elimination
+- Bundle size optimization (<1000kb chunks)
+- Image optimization and lazy loading
+- Optimized dependencies loading
+- Production minification
+
+See [PERFORMANCE.md](./PERFORMANCE.md) for detailed performance guidelines.
+
+## 🤝 Contributing
+
+We welcome contributions! Please read our [Contributing Guidelines](./CONTRIBUTING.md) for details on:
+- Git workflow and branching strategy
+- Code style and standards
+- Commit message conventions
+- Pull request process
+
+### Branch Strategy
+- `main`: Production-ready code
+- `develop`: Development and local testing
+- `ai-agent`: Lovable AI development
+
+## 🔧 Development with Lovable
+
+This project is integrated with [Lovable](https://lovable.dev), enabling AI-assisted development.
+
+**Lovable Project URL**: https://lovable.dev/projects/2de11298-1251-41da-876f-589d0d1033e2
+
+### Editing Options
+
+1. **Use Lovable**: Visit the project URL and start prompting. Changes are automatically committed.
+2. **Use your IDE**: Clone the repo and push changes. They will sync to Lovable.
+3. **Edit on GitHub**: Make changes directly in the GitHub interface.
+4. **Use GitHub Codespaces**: Launch a cloud development environment.
+
+## 🚀 Deployment
+
+Deploy using Lovable:
+1. Open the [Lovable Project](https://lovable.dev/projects/2de11298-1251-41da-876f-589d0d1033e2)
+2. Click Share → Publish
+
+### Custom Domain
+
+Connect a custom domain via Project > Settings > Domains. [Learn more](https://docs.lovable.dev/features/custom-domain#custom-domain)
+
+## 📄 License
+
+This project is private and proprietary.
+
+## 🔗 Links
+
+- [Live Site](https://cotizatuplanhoy.lovable.app)
+- [Lovable Project](https://lovable.dev/projects/2de11298-1251-41da-876f-589d0d1033e2)
+- [Contributing Guidelines](./CONTRIBUTING.md)
+- [Performance Guide](./PERFORMANCE.md)
+- [Testing Guide](./TESTING.md)
+
+## 📞 Contact
+
+For inquiries about insurance plans, visit our [Contact Page](https://cotizatuplanhoy.lovable.app/contacto) or reach out via WhatsApp at +56 9 2836 0499.
+
+---
+
+Built with ❤️ using [Lovable](https://lovable.dev)
