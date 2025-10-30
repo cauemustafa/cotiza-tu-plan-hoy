@@ -75,12 +75,13 @@ const HowItWorks = () => {
                 className="relative"
               >
                 <div className="text-center">
-                  <motion.div
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-primary flex items-center justify-center shadow-elegant"
-                  >
-                    <Icon className="h-10 w-10 text-white" />
-                  </motion.div>
+                    <motion.div
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-primary flex items-center justify-center shadow-elegant"
+                    >
+                      {/* use the site's foreground text color so icons match body text and follow dark mode */}
+                      <Icon className="h-10 w-10 text-foreground" />
+                    </motion.div>
                   
                   <h3 className="text-xl font-bold mb-3">{step.title}</h3>
                   <p className="text-muted-foreground">{step.description}</p>
