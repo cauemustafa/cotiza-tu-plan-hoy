@@ -8,6 +8,7 @@ import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { trackFormSubmit, trackWhatsAppClick } from "@/lib/analytics";
+import heroImage from "@/assets/contacto-hero.jpg";
 
 const Contacto = () => {
   const { toast } = useToast();
@@ -53,18 +54,32 @@ Mensaje: ${formData.message}`;
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
+      
+      {/* Hero Section */}
+      <section className="relative h-[400px] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <img 
+            src={heroImage} 
+            alt="Atención al cliente profesional"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/85 via-primary/75 to-accent/65" />
+        </div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-4xl mx-auto text-center text-white">
+            <h1 className="text-4xl sm:text-5xl font-bold mb-6">
+              Contáctanos
+            </h1>
+            <p className="text-xl text-white/90">
+              Estamos aquí para ayudarte a encontrar el seguro perfecto
+            </p>
+          </div>
+        </div>
+      </section>
+
       <main className="flex-1 py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <h1 className="text-4xl sm:text-5xl font-bold mb-6">
-                Contáctanos
-              </h1>
-              <p className="text-xl text-muted-foreground">
-                Estamos aquí para ayudarte a encontrar el seguro perfecto
-              </p>
-            </div>
-
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               {/* Contact Form */}
               <div>
