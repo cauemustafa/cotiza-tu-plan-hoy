@@ -11,13 +11,19 @@ import heroImage from "@/assets/seguros-pyme-hero.jpg";
 const SegurosPyme = () => {
   const handleSelectPlan = (planIndex: number) => {
     const planName = pymePlans[planIndex].name;
+    const whatsappMessage = `Hola, me gustaría cotizar el plan PYME: ${planName}.`;
+    const whatsappUrl = `https://wa.me/56928360499?text=${encodeURIComponent(whatsappMessage)}`;
+
     toast.success(`Plan ${planName} seleccionado`, {
       description: "Serás redirigido a WhatsApp para completar tu cotización empresarial"
     });
     setTimeout(() => {
-      window.open("https://wa.me/56928360499", "_blank");
+      window.open(whatsappUrl, "_blank");
     }, 1500);
   };
+
+  const genericWhatsappMessage = "Hola, me gustaría obtener más información sobre los seguros para PYME.";
+  const genericWhatsappUrl = `https://wa.me/56928360499?text=${encodeURIComponent(genericWhatsappMessage)}`;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -88,7 +94,7 @@ const SegurosPyme = () => {
                   <p className="text-sm text-muted-foreground">Adaptamos la cobertura a tus necesidades</p>
                 </div>
               </div>
-              <a href="https://wa.me/56928360499" target="_blank" rel="noopener noreferrer">
+              <a href={genericWhatsappUrl} target="_blank" rel="noopener noreferrer">
                 <Button size="lg" className="gradient-primary">
                   <Phone className="mr-2 h-5 w-5" />
                   Solicitar Cotización Empresarial

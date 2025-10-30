@@ -10,6 +10,9 @@ const Hero = () => {
     trackWhatsAppClick('hero_section');
   };
 
+  const whatsappMessage = "Hola, me gustaría cotizar un plan de seguro de salud.";
+  const whatsappUrl = `https://wa.me/56928360499?text=${encodeURIComponent(whatsappMessage)}`;
+
   return (
     <section className="relative min-h-[600px] flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -66,7 +69,7 @@ const Hero = () => {
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
           >
             <a
-              href="https://wa.me/56928360499"
+              href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               onClick={handleWhatsAppClick}

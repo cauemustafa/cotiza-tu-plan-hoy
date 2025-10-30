@@ -19,7 +19,9 @@ const StickyCTABar = () => {
 
   const handlePhoneClick = () => {
     window.location.href = "tel:+56928360499";
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (typeof window !== 'undefined' && (window as any).gtag) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (window as any).gtag('event', 'phone_click', {
         event_category: 'engagement',
         event_label: 'sticky_cta_bar'
@@ -30,7 +32,9 @@ const StickyCTABar = () => {
   const handleWhatsAppClick = () => {
     const message = "¡Hola! Me gustaría obtener una cotización.";
     window.open(`https://wa.me/56928360499?text=${encodeURIComponent(message)}`, '_blank');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (typeof window !== 'undefined' && (window as any).gtag) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (window as any).gtag('event', 'whatsapp_click', {
         event_category: 'engagement',
         event_label: 'sticky_cta_bar'

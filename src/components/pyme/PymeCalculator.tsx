@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -173,15 +174,11 @@ const PymeCalculator = () => {
                     <p className="text-xs text-muted-foreground mb-3">
                       * Precio estimado. El valor final puede variar según coberturas específicas.
                     </p>
-                    <a
-                      href="https://wa.me/56928360499"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <Link to="/contacto" className="w-full">
                       <Button className="w-full">
                         Solicitar Cotización Detallada
                       </Button>
-                    </a>
+                    </Link>
                   </div>
                 </CardContent>
               </Card>

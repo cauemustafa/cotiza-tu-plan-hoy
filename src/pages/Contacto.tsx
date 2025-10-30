@@ -5,57 +5,63 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
-import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { trackFormSubmit, trackWhatsAppClick } from "@/lib/analytics";
 import heroImage from "@/assets/contacto-hero.jpg";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+
+const formSchema = z.object({
+  name: z.string().min(2, { message: "El nombre debe tener al menos 2 caracteres." }),
+  email: z.string().email({ message: "Por favor ingrese un correo electrónico válido." }),
+  phone: z.string().min(9, { message: "El teléfono debe tener al menos 9 dígitos." }),
+  message: z.string().min(10, { message: "El mensaje debe tener al menos 10 caracteres." }),
+});
 
 const Contacto = () => {
   const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+    },
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Track form submission
+  const handleSubmit = (values: z.infer<typeof formSchema>) => {
     trackFormSubmit('contact_form');
     trackWhatsAppClick('contact_form');
-    
-    // Create WhatsApp message
-    const whatsappMessage = `Hola! Mi nombre es ${formData.name}.
-Email: ${formData.email}
-Teléfono: ${formData.phone}
 
-Mensaje: ${formData.message}`;
-    
+    const whatsappMessage = `Hola! Mi nombre es ${values.name}.\nEmail: ${values.email}\nTeléfono: ${values.phone}\n\nMensaje: ${values.message}`;
     const whatsappUrl = `https://wa.me/56928360499?text=${encodeURIComponent(whatsappMessage)}`;
     window.open(whatsappUrl, '_blank');
-    
+
     toast({
       title: "¡Gracias por tu mensaje!",
       description: "Te contactaremos pronto por WhatsApp",
     });
-    
-    setFormData({ name: "", email: "", phone: "", message: "" });
+
+    form.reset();
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const genericWhatsappMessage = "Hola, me gustaría obtener más información.";
+  const genericWhatsappUrl = `https://wa.me/56928360499?text=${encodeURIComponent(genericWhatsappMessage)}`;
 
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       
-      {/* Hero Section */}
       <section className="relative h-[400px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img 
@@ -81,7 +87,6 @@ Mensaje: ${formData.message}`;
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              {/* Contact Form */}
               <div>
                 <Card className="shadow-card">
                   <CardHeader>
@@ -91,74 +96,73 @@ Mensaje: ${formData.message}`;
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                      <div>
-                        <label htmlFor="name" className="block text-sm font-medium mb-2">
-                          Nombre Completo
-                        </label>
-                        <Input
-                          id="name"
+                    <Form {...form}>
+                      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+                        <FormField
+                          control={form.control}
                           name="name"
-                          value={formData.name}
-                          onChange={handleChange}
-                          placeholder="Juan Pérez"
-                          required
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Nombre Completo</FormLabel>
+                              <FormControl>
+                                <Input placeholder="Juan Pérez" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
                         />
-                      </div>
-                      
-                      <div>
-                        <label htmlFor="email" className="block text-sm font-medium mb-2">
-                          Email
-                        </label>
-                        <Input
-                          id="email"
+                        <FormField
+                          control={form.control}
                           name="email"
-                          type="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                          placeholder="juan@ejemplo.com"
-                          required
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Email</FormLabel>
+                              <FormControl>
+                                <Input placeholder="juan@ejemplo.com" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
                         />
-                      </div>
-                      
-                      <div>
-                        <label htmlFor="phone" className="block text-sm font-medium mb-2">
-                          Teléfono
-                        </label>
-                        <Input
-                          id="phone"
+                        <FormField
+                          control={form.control}
                           name="phone"
-                          value={formData.phone}
-                          onChange={handleChange}
-                          placeholder="+56 9 1234 5678"
-                          required
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Teléfono</FormLabel>
+                              <FormControl>
+                                <Input placeholder="+56 9 1234 5678" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
                         />
-                      </div>
-                      
-                      <div>
-                        <label htmlFor="message" className="block text-sm font-medium mb-2">
-                          Mensaje
-                        </label>
-                        <Textarea
-                          id="message"
+                        <FormField
+                          control={form.control}
                           name="message"
-                          value={formData.message}
-                          onChange={handleChange}
-                          placeholder="Cuéntanos qué tipo de seguro necesitas..."
-                          rows={5}
-                          required
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Mensaje</FormLabel>
+                              <FormControl>
+                                <Textarea
+                                  placeholder="Cuéntanos qué tipo de seguro necesitas..."
+                                  rows={5}
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
                         />
-                      </div>
-                      
-                      <Button type="submit" className="w-full gradient-primary">
-                        Enviar Mensaje
-                      </Button>
-                    </form>
+                        <Button type="submit" className="w-full gradient-primary">
+                          Enviar Mensaje
+                        </Button>
+                      </form>
+                    </Form>
                   </CardContent>
                 </Card>
               </div>
 
-              {/* Contact Information */}
               <div className="space-y-6">
                 <Card className="shadow-card">
                   <CardHeader>
@@ -172,7 +176,7 @@ Mensaje: ${formData.message}`;
                       <div>
                         <p className="font-semibold mb-1">WhatsApp</p>
                         <a 
-                          href="https://wa.me/56928360499" 
+                          href={genericWhatsappUrl} 
                           target="_blank" 
                           rel="noopener noreferrer"
                           className="text-muted-foreground hover:text-primary transition-smooth"
@@ -229,7 +233,7 @@ Mensaje: ${formData.message}`;
                       Contáctanos por WhatsApp y te responderemos al instante
                     </p>
                     <a
-                      href="https://wa.me/56928360499"
+                      href={genericWhatsappUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                     >

@@ -6,6 +6,9 @@ import { Check, Phone, Heart } from "lucide-react";
 import heroImage from "@/assets/isapre-hero.jpg";
 
 const Isapre = () => {
+  const whatsappMessage = "Hola, me gustaría obtener más información sobre los planes de Isapre.";
+  const whatsappUrl = `https://wa.me/56928360499?text=${encodeURIComponent(whatsappMessage)}`;
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -64,7 +67,7 @@ const Isapre = () => {
                       </li>
                     ))}
                   </ul>
-                  <a href="https://wa.me/56928360499" target="_blank" rel="noopener noreferrer" className="block">
+                  <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="block">
                     <Button className="w-full">
                       <Phone className="mr-2 h-4 w-4" />
                       Cotizar Plan
@@ -100,7 +103,7 @@ const Isapre = () => {
                       </li>
                     ))}
                   </ul>
-                  <a href="https://wa.me/56928360499" target="_blank" rel="noopener noreferrer" className="block">
+                  <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="block">
                     <Button className="w-full gradient-primary">
                       <Phone className="mr-2 h-4 w-4" />
                       Cotizar Plan
@@ -139,7 +142,7 @@ const Isapre = () => {
                 <p className="text-muted-foreground mb-4">
                   ¿Necesitas ayuda para elegir el plan ideal?
                 </p>
-                <a href="https://wa.me/56928360499" target="_blank" rel="noopener noreferrer">
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
                   <Button size="lg" className="gradient-primary">
                     <Phone className="mr-2 h-5 w-5" />
                     Hablar con un Asesor Isapre
