@@ -18,9 +18,22 @@ Avatar.displayName = AvatarPrimitive.Root.displayName;
 const AvatarImage = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Image>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
->(({ className, ...props }, ref) => (
-  <AvatarPrimitive.Image ref={ref} className={cn("aspect-square h-full w-full", className)} {...props} />
-));
+>(({ className, ...props }, ref) => {
+  // Ensure we don't forward legacy/boolean-only props like `unoptimized` to the underlying img
+  const restProps = { ...props } as Record<string, unknown>;
+  if ('unoptimized' in restProps) {
+    delete restProps.unoptimized;
+  }
+
+  return (
+    // cast back to the component's prop type for TS compatibility
+    <AvatarPrimitive.Image
+      ref={ref}
+      className={cn("aspect-square h-full w-full", className)}
+      {...(restProps as React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>)}
+    />
+  );
+});
 AvatarImage.displayName = AvatarPrimitive.Image.displayName;
 
 const AvatarFallback = React.forwardRef<
