@@ -59,8 +59,8 @@ const ServicesSection = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <Card className="h-full shadow-card hover:shadow-elegant transition-smooth border-2 hover:border-primary/20 overflow-hidden">
-                  <div className="relative h-48 overflow-hidden">
-                    <img 
+                  <div className="relative h-48 md:h-56 lg:h-64 overflow-hidden">
+                    <img
                       src={service.image} 
                       alt={service.title}
                       className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
