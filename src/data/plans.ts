@@ -1,65 +1,75 @@
-// Seguros Individuales Plans
+// Seguros Individuales Plans - Bupa
 export const individualPlans = [
   {
-    name: "Plan Básico",
-    price: "$25.000/mes",
-    description: "Protección esencial para ti",
+    name: "Bupa Multisalud",
+    price: "Desde $55.152*",
+    priceDetail: "(*) UF 1,40 mensual",
+    description: "¡Ahora sin deducible!",
     popular: false
   },
   {
-    name: "Plan Completo",
-    price: "$45.000/mes",
-    description: "Cobertura amplia y flexible",
+    name: "Bupa Cuidado Total",
+    price: "Desde $33.879*",
+    priceDetail: "(*) UF 0,86 mensual",
+    description: "¡Ahora sin deducible!",
     popular: true
   },
   {
-    name: "Plan Premium",
-    price: "$75.000/mes",
-    description: "La mejor protección disponible",
+    name: "Bupa + Protección",
+    price: "Desde $29.546*",
+    priceDetail: "(*) UF 0,75 mensual",
+    description: "¡Ahora sin deducible!",
+    popular: false
+  },
+  {
+    name: "Bupa + Protección Ambulatorio 70",
+    price: "Consultar",
+    priceDetail: "",
+    description: "Amplía tu cobertura Fonasa",
     popular: false
   }
 ];
 
 export const individualFeatures = [
   {
-    name: "Consultas médicas",
-    values: [true, true, true]
+    name: "Cobertura Fonasa",
+    values: ["Complementa", "Completa", "Amplía", "Amplía"]
+  },
+  {
+    name: "Accede a diferentes coberturas",
+    values: [true, true, true, true]
+  },
+  {
+    name: "Cobertura sobre copago",
+    values: ["Hasta 90%", "Hasta 80%", "Hasta 80%", "Hasta 70%"]
+  },
+  {
+    name: "Extensión cobertura catastrófica",
+    values: [true, false, true, false]
+  },
+  {
+    name: "Beneficio dental",
+    values: [false, true, false, "IntegraMédica"]
+  },
+  {
+    name: "Sin deducible",
+    values: [true, true, true, false]
+  },
+  {
+    name: "Red de prestadores",
+    values: ["Premium", "Amplia", "Básica", "IntegraMédica"]
+  },
+  {
+    name: "Urgencias",
+    values: [true, true, true, true]
   },
   {
     name: "Hospitalización",
-    values: ["Hasta $5M", "Hasta $15M", "Ilimitado"]
+    values: [true, true, true, false]
   },
   {
-    name: "Cirugías",
-    values: [true, true, true]
-  },
-  {
-    name: "Medicina preventiva",
-    values: [false, true, true]
-  },
-  {
-    name: "Dental",
-    values: [false, "Básico", "Completo"]
-  },
-  {
-    name: "Terapias",
-    values: [false, true, true]
-  },
-  {
-    name: "Exámenes",
-    values: ["50% reembolso", "80% reembolso", "100% reembolso"]
-  },
-  {
-    name: "Red de clínicas",
-    values: ["Red básica", "Red amplia", "Red premium + internacional"]
-  },
-  {
-    name: "Telemedicina 24/7",
-    values: [false, true, true]
-  },
-  {
-    name: "Copago",
-    values: ["20%", "10%", "0%"]
+    name: "Consultas médicas",
+    values: [true, true, true, true]
   }
 ];
 

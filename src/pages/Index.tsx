@@ -27,7 +27,7 @@ const Index = () => {
           <CTASection />
         </main>
         <Footer />
-        <FloatingWhatsApp />
+        {/* <FloatingWhatsApp /> */}
         <StickyCTABar />
       </div>
     </>
