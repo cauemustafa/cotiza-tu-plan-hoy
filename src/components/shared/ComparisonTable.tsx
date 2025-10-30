@@ -3,8 +3,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
-import segurosIndividualesImg from "@/assets/seguros-individuales-card.jpg";
-import segurosPymeImg from "@/assets/seguros-pyme-card.jpg";
 
 interface PlanFeature {
   name: string;
@@ -26,14 +24,6 @@ interface ComparisonTableProps {
 }
 
 const ComparisonTable = ({ plans, features, onSelectPlan }: ComparisonTableProps) => {
-  // Map plan names to images
-  const getImageForPlan = (planName: string) => {
-    if (planName.toLowerCase().includes('pyme') || planName.toLowerCase().includes('corporativo')) {
-      return segurosPymeImg;
-    }
-    return segurosIndividualesImg;
-  };
-
   const renderFeatureValue = (value: boolean | string) => {
     if (typeof value === "boolean") {
       return value ? (
@@ -54,16 +44,8 @@ const ComparisonTable = ({ plans, features, onSelectPlan }: ComparisonTableProps
             <tr className="border-b">
               <th className="text-left p-4 font-semibold">Características</th>
               {plans.map((plan, index) => (
-                <th key={index} className="p-4 text-center">
+              <th key={index} className="p-4 text-center">
                   <div className="flex flex-col gap-2">
-                    {/* Mini Image Header */}
-                    <div className="mx-auto mb-2 overflow-hidden rounded-lg w-20 h-20">
-                      <img 
-                        src={getImageForPlan(plan.name)} 
-                        alt={plan.name}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
                     {plan.popular && (
                       <Badge className="mx-auto">Más Popular</Badge>
                     )}
@@ -106,16 +88,7 @@ const ComparisonTable = ({ plans, features, onSelectPlan }: ComparisonTableProps
           {plans.map((plan, planIndex) => (
             <AccordionItem key={planIndex} value={`plan-${planIndex}`} className="border rounded-lg overflow-hidden">
               <AccordionTrigger className="px-4 hover:no-underline">
-                <div className="flex items-center gap-3 text-left w-full">
-                  {/* Mini Image in Mobile */}
-                  <div className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden">
-                    <img 
-                      src={getImageForPlan(plan.name)} 
-                      alt={plan.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="flex flex-col items-start gap-1 flex-1">
+                <div className="flex flex-col items-start gap-1 text-left w-full">
                     {plan.popular && (
                       <Badge className="text-xs">Más Popular</Badge>
                     )}
@@ -124,7 +97,6 @@ const ComparisonTable = ({ plans, features, onSelectPlan }: ComparisonTableProps
                     {plan.priceDetail && (
                       <p className="text-xs text-muted-foreground">{plan.priceDetail}</p>
                     )}
-                  </div>
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-4 pb-4">
