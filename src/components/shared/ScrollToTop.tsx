@@ -36,12 +36,12 @@ const ScrollToTop = () => {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
-          className="fixed bottom-6 right-6 z-40"
+          className="fixed bottom-20 right-6 z-50"
         >
           <Button
             onClick={scrollToTop}
             size="icon"
-            className="rounded-full shadow-lg h-12 w-12"
+            className="rounded-full shadow-lg h-12 w-12 bg-primary"
             aria-label="Volver arriba"
           >
             <ArrowUp className="h-5 w-5" />
