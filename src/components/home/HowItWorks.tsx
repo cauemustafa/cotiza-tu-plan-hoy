@@ -75,12 +75,13 @@ const HowItWorks = () => {
                 className="relative"
               >
                 <div className="text-center">
-                  <motion.div
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-primary flex items-center justify-center shadow-elegant"
-                  >
-                    <Icon className="h-10 w-10 text-white" />
-                  </motion.div>
+                    <motion.div
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-primary flex items-center justify-center shadow-elegant"
+                    >
+                      {/* force icon color to black so it remains visible on light backgrounds */}
+                      <Icon className="h-10 w-10 text-black" />
+                    </motion.div>
                   
                   <h3 className="text-xl font-bold mb-3">{step.title}</h3>
                   <p className="text-muted-foreground">{step.description}</p>
