@@ -12,6 +12,7 @@ interface PlanFeature {
 interface Plan {
   name: string;
   price: string;
+  priceDetail?: string;
   description: string;
   popular?: boolean;
 }
@@ -50,6 +51,9 @@ const ComparisonTable = ({ plans, features, onSelectPlan }: ComparisonTableProps
                     )}
                     <h3 className="font-bold text-lg">{plan.name}</h3>
                     <p className="text-2xl font-bold text-primary">{plan.price}</p>
+                    {plan.priceDetail && (
+                      <p className="text-xs text-muted-foreground">{plan.priceDetail}</p>
+                    )}
                     <p className="text-sm text-muted-foreground">{plan.description}</p>
                     <Button 
                       onClick={() => onSelectPlan(index)}
@@ -90,6 +94,9 @@ const ComparisonTable = ({ plans, features, onSelectPlan }: ComparisonTableProps
                   )}
                   <h3 className="font-bold text-lg">{plan.name}</h3>
                   <p className="text-xl font-bold text-primary">{plan.price}</p>
+                  {plan.priceDetail && (
+                    <p className="text-xs text-muted-foreground">{plan.priceDetail}</p>
+                  )}
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-4 pb-4">
