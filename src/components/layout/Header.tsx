@@ -14,6 +14,9 @@ const Header = () => {
     { name: "Contacto", href: "/contacto" },
   ];
 
+  const whatsappMessage = "Hola, me gustaría obtener más información sobre sus planes.";
+  const whatsappUrl = `https://wa.me/56928360499?text=${encodeURIComponent(whatsappMessage)}`;
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -39,7 +42,7 @@ const Header = () => {
               </Link>
             ))}
             <a
-              href="https://wa.me/56928360499"
+              href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -77,7 +80,7 @@ const Header = () => {
               </Link>
             ))}
             <a
-              href="https://wa.me/56928360499"
+              href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="block"

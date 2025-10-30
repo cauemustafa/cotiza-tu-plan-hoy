@@ -3,6 +3,9 @@ import { Phone, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const CTASection = () => {
+  const whatsappMessage = "Hola, estoy interesado en cotizar un plan de seguro.";
+  const whatsappUrl = `https://wa.me/56928360499?text=${encodeURIComponent(whatsappMessage)}`;
+
   return (
     <section className="py-20 gradient-primary text-white relative overflow-hidden">
       {/* Decorative circles */}
@@ -20,7 +23,7 @@ const CTASection = () => {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="https://wa.me/56928360499"
+              href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
