@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -51,30 +51,42 @@ const PymeCalculator = () => {
   const [result, setResult] = useState<PlanResult | null>(null);
   const [error, setError] = useState<string>("");
 
-  const calculatePlan = () => {
-    const numEmployees = parseInt(employees);
-    
-    if (isNaN(numEmployees)) {
-      setError("Por favor ingrese un número válido");
-      setResult(null);
-      return;
-    }
+  useEffect(() => {
+    const calculatePlan = () => {
+      if (employees === "") {
+        setError("");
+        setResult(null);
+        return;
+      }
 
-    if (numEmployees < 5) {
-      setError("El número mínimo de colaboradores es 5");
-      setResult(null);
-      return;
-    }
+      const numEmployees = parseInt(employees);
+      
+      if (isNaN(numEmployees)) {
+        setError("Por favor ingrese un número válido");
+        setResult(null);
+        return;
+      }
 
-    setError("");
-    const plan = PYME_PLANS.find(
-      p => numEmployees >= p.minEmployees && numEmployees <= p.maxEmployees
-    );
+      if (numEmployees < 5) {
+        setError("El número mínimo de colaboradores es 5");
+        setResult(null);
+        return;
+      }
 
-    if (plan) {
-      setResult(plan);
-    }
-  };
+      setError("");
+      const plan = PYME_PLANS.find(
+        p => numEmployees >= p.minEmployees && numEmployees <= p.maxEmployees
+      );
+
+      if (plan) {
+        setResult(plan);
+      } else {
+        setResult(null);
+      }
+    };
+
+    calculatePlan();
+  }, [employees]);
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('es-CL', {
@@ -109,11 +121,7 @@ const PymeCalculator = () => {
               placeholder="Ej: 25"
               value={employees}
               onChange={(e) => setEmployees(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && calculatePlan()}
             />
-            <Button onClick={calculatePlan}>
-              Calcular
-            </Button>
           </div>
         </div>
 
