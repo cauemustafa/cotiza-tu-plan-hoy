@@ -3,25 +3,41 @@ import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, Phone, Heart } from "lucide-react";
+import heroImage from "@/assets/isapre-hero.jpg";
 
 const Isapre = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
-        <section className="py-20 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/5">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto text-center mb-16">
+        {/* Hero Section with Image */}
+        <section className="relative h-[400px] flex items-center justify-center overflow-hidden">
+          <div className="absolute inset-0">
+            <img 
+              src={heroImage} 
+              alt="Profesionales de la salud con planes Isapre CruzBlanca"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/85 via-primary/75 to-accent/65" />
+          </div>
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="max-w-4xl mx-auto text-center text-white">
               <div className="flex justify-center mb-4">
-                <Heart className="h-16 w-16 text-primary" />
+                <Heart className="h-16 w-16 text-white" />
               </div>
               <h1 className="text-4xl sm:text-5xl font-bold mb-6">
                 Planes Isapre CruzBlanca
               </h1>
-              <p className="text-xl text-muted-foreground">
+              <p className="text-xl text-white/90">
                 La mejor opción en salud previsional con cobertura integral
               </p>
             </div>
+          </div>
+        </section>
+
+        {/* Content Section */}
+        <section className="py-20 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/5">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 max-w-4xl mx-auto">
               <Card className="shadow-card">

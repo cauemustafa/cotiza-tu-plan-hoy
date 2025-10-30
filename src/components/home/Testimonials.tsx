@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Star } from "lucide-react";
+import mariaImg from "@/assets/testimonial-maria.jpg";
+import carlosImg from "@/assets/testimonial-carlos.jpg";
+import sofiaImg from "@/assets/testimonial-sofia.jpg";
 
 const Testimonials = () => {
   const testimonials = [
@@ -9,21 +12,21 @@ const Testimonials = () => {
       role: "Seguros Individuales",
       content: "Excelente atención. Paloma me ayudó a encontrar el plan perfecto para mi familia. Muy profesional y rápida en responder.",
       rating: 5,
-      avatar: "MG",
+      image: mariaImg,
     },
     {
-      name: "Roberto Silva",
+      name: "Carlos Silva",
       role: "Seguros PYME",
       content: "Contraté seguros para mis 15 empleados. El proceso fue súper fácil y los precios muy competitivos. Totalmente recomendado.",
       rating: 5,
-      avatar: "RS",
+      image: carlosImg,
     },
     {
-      name: "Carolina Muñoz",
+      name: "Sofía Muñoz",
       role: "Isapre",
       content: "Cambié mi Isapre gracias a la asesoría de Paloma. Ahora tengo mejor cobertura y pago menos. ¡Gracias!",
       rating: 5,
-      avatar: "CM",
+      image: sofiaImg,
     },
   ];
 
@@ -75,11 +78,15 @@ const Testimonials = () => {
         >
           {testimonials.map((testimonial, index) => (
             <motion.div key={index} variants={itemVariants}>
-              <Card className="h-full shadow-card hover:shadow-elegant transition-shadow">
+              <Card className="h-full shadow-card hover:shadow-elegant transition-all duration-300 overflow-hidden">
                 <CardContent className="pt-6">
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
-                      {testimonial.avatar}
+                    <div className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-primary/20">
+                      <img 
+                        src={testimonial.image} 
+                        alt={testimonial.name}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                     <div>
                       <p className="font-semibold">{testimonial.name}</p>

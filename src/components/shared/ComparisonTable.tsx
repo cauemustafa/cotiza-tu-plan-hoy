@@ -44,7 +44,7 @@ const ComparisonTable = ({ plans, features, onSelectPlan }: ComparisonTableProps
             <tr className="border-b">
               <th className="text-left p-4 font-semibold">Características</th>
               {plans.map((plan, index) => (
-                <th key={index} className="p-4 text-center">
+              <th key={index} className="p-4 text-center">
                   <div className="flex flex-col gap-2">
                     {plan.popular && (
                       <Badge className="mx-auto">Más Popular</Badge>
@@ -86,17 +86,17 @@ const ComparisonTable = ({ plans, features, onSelectPlan }: ComparisonTableProps
       <div className="lg:hidden">
         <Accordion type="single" collapsible className="space-y-4">
           {plans.map((plan, planIndex) => (
-            <AccordionItem key={planIndex} value={`plan-${planIndex}`} className="border rounded-lg">
+            <AccordionItem key={planIndex} value={`plan-${planIndex}`} className="border rounded-lg overflow-hidden">
               <AccordionTrigger className="px-4 hover:no-underline">
-                <div className="flex flex-col items-start gap-2 text-left">
-                  {plan.popular && (
-                    <Badge>Más Popular</Badge>
-                  )}
-                  <h3 className="font-bold text-lg">{plan.name}</h3>
-                  <p className="text-xl font-bold text-primary">{plan.price}</p>
-                  {plan.priceDetail && (
-                    <p className="text-xs text-muted-foreground">{plan.priceDetail}</p>
-                  )}
+                <div className="flex flex-col items-start gap-1 text-left w-full">
+                    {plan.popular && (
+                      <Badge className="text-xs">Más Popular</Badge>
+                    )}
+                    <h3 className="font-bold text-base">{plan.name}</h3>
+                    <p className="text-lg font-bold text-primary">{plan.price}</p>
+                    {plan.priceDetail && (
+                      <p className="text-xs text-muted-foreground">{plan.priceDetail}</p>
+                    )}
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-4 pb-4">

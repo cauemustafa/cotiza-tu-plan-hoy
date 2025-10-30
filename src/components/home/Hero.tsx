@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Phone, Shield, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { trackWhatsAppClick } from "@/lib/analytics";
+import heroImage from "@/assets/hero-health-insurance.jpg";
 
 const Hero = () => {
   const handleWhatsAppClick = () => {
@@ -11,8 +12,15 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-[600px] flex items-center justify-center overflow-hidden">
-      {/* Background Gradient */}
-      <div className="absolute inset-0 gradient-hero opacity-95" />
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <img 
+          src={heroImage} 
+          alt="Familia feliz protegida con seguro de salud"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/80 to-primary/70" />
+      </div>
       
       {/* Decorative Elements */}
       <div className="absolute inset-0 overflow-hidden">
