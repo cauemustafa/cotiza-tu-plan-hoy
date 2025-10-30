@@ -10,13 +10,19 @@ import heroImage from "@/assets/seguros-individuales-hero.jpg";
 const SegurosIndividuales = () => {
   const handleSelectPlan = (planIndex: number) => {
     const planName = individualPlans[planIndex].name;
+    const whatsappMessage = `Hola, me gustaría cotizar el plan individual: ${planName}.`;
+    const whatsappUrl = `https://wa.me/56928360499?text=${encodeURIComponent(whatsappMessage)}`;
+
     toast.success(`Plan ${planName} seleccionado`, {
       description: "Serás redirigido a WhatsApp para completar tu cotización"
     });
     setTimeout(() => {
-      window.open("https://wa.me/56928360499", "_blank");
+      window.open(whatsappUrl, "_blank");
     }, 1500);
   };
+
+  const genericWhatsappMessage = "Hola, me gustaría obtener más información sobre los seguros individuales.";
+  const genericWhatsappUrl = `https://wa.me/56928360499?text=${encodeURIComponent(genericWhatsappMessage)}`;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -67,7 +73,7 @@ const SegurosIndividuales = () => {
               <p className="text-muted-foreground mb-6">
                 Nuestros asesores están listos para ayudarte a encontrar la cobertura perfecta
               </p>
-              <a href="https://wa.me/56928360499" target="_blank" rel="noopener noreferrer">
+              <a href={genericWhatsappUrl} target="_blank" rel="noopener noreferrer">
                 <Button size="lg" className="gradient-primary">
                   <Phone className="mr-2 h-5 w-5" />
                   Habla con un Asesor Gratis
