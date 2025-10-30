@@ -5,6 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import faqIllustration from "@/assets/faq-illustration.jpg";
 
 const FAQ = () => {
   const faqs = [
@@ -43,47 +44,71 @@ const FAQ = () => {
   ];
 
   return (
-    <section className="py-20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Preguntas Frecuentes
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Resolvemos tus dudas sobre seguros de salud
-          </p>
-        </motion.div>
+    <section className="py-20 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-muted/30 to-background" />
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Illustration Side */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="hidden lg:block"
+          >
+            <div className="relative">
+              <img 
+                src={faqIllustration} 
+                alt="Preguntas Frecuentes"
+                className="w-full rounded-2xl shadow-elegant"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent rounded-2xl" />
+            </div>
+          </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-3xl mx-auto"
-        >
-          <Accordion type="single" collapsible className="space-y-4">
-            {faqs.map((faq, index) => (
-              <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className="bg-card shadow-card rounded-lg px-6 border-none"
-              >
-                <AccordionTrigger className="text-left hover:no-underline py-5">
-                  <span className="font-semibold">{faq.question}</span>
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-5">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </motion.div>
+          {/* FAQ Side */}
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="mb-12"
+            >
+              <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+                Preguntas Frecuentes
+              </h2>
+              <p className="text-xl text-muted-foreground">
+                Resolvemos tus dudas sobre seguros de salud
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <Accordion type="single" collapsible className="space-y-4">
+                {faqs.map((faq, index) => (
+                  <AccordionItem
+                    key={index}
+                    value={`item-${index}`}
+                    className="bg-card shadow-card rounded-lg px-6 border-none hover:shadow-elegant transition-shadow"
+                  >
+                    <AccordionTrigger className="text-left hover:no-underline py-5">
+                      <span className="font-semibold">{faq.question}</span>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground pb-5">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   );

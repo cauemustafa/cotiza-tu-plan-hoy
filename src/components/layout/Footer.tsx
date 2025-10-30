@@ -1,10 +1,25 @@
 import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin, Shield, Award, CheckCircle } from "lucide-react";
+import logoBupa from "@/assets/logo-bupa.jpg";
+import logoCruzBlanca from "@/assets/logo-cruzblanca.jpg";
 
 const Footer = () => {
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Partner Logos Section */}
+        <div className="mb-8 pb-8 border-b border-primary-foreground/20">
+          <h4 className="text-center font-semibold mb-6 text-primary-foreground/90">Nuestros Socios</h4>
+          <div className="flex justify-center items-center gap-8 flex-wrap">
+            <div className="bg-white rounded-lg p-4 shadow-lg hover:scale-105 transition-transform">
+              <img src={logoBupa} alt="Bupa Seguros" className="h-12 w-auto object-contain" />
+            </div>
+            <div className="bg-white rounded-lg p-4 shadow-lg hover:scale-105 transition-transform">
+              <img src={logoCruzBlanca} alt="CruzBlanca Isapre" className="h-12 w-auto object-contain" />
+            </div>
+          </div>
+        </div>
+        
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
@@ -15,6 +30,22 @@ const Footer = () => {
             <p className="text-sm text-primary-foreground/80">
               Paloma Ramirez
             </p>
+            
+            {/* Trust Badges */}
+            <div className="pt-4 space-y-2">
+              <div className="flex items-center gap-2 text-sm">
+                <Shield className="h-4 w-4 text-white" />
+                <span className="text-primary-foreground/90">Corredor Certificado</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm">
+                <Award className="h-4 w-4 text-white" />
+                <span className="text-primary-foreground/90">+10 Años Experiencia</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm">
+                <CheckCircle className="h-4 w-4 text-white" />
+                <span className="text-primary-foreground/90">1000+ Clientes Satisfechos</span>
+              </div>
+            </div>
           </div>
 
           {/* Quick Links */}

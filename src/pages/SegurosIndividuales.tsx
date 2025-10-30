@@ -5,6 +5,7 @@ import { Phone } from "lucide-react";
 import ComparisonTable from "@/components/shared/ComparisonTable";
 import { individualPlans, individualFeatures } from "@/data/plans";
 import { toast } from "sonner";
+import heroImage from "@/assets/seguros-individuales-hero.jpg";
 
 const SegurosIndividuales = () => {
   const handleSelectPlan = (planIndex: number) => {
@@ -21,16 +22,31 @@ const SegurosIndividuales = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
-        <section className="py-20 bg-gradient-to-br from-primary/5 to-accent/5">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto text-center mb-16">
+        {/* Hero Section with Image */}
+        <section className="relative h-[400px] flex items-center justify-center overflow-hidden">
+          <div className="absolute inset-0">
+            <img 
+              src={heroImage} 
+              alt="Familia feliz con seguro de salud individual"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/85 via-primary/75 to-primary/65" />
+          </div>
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="max-w-4xl mx-auto text-center text-white">
               <h1 className="text-4xl sm:text-5xl font-bold mb-6">
                 Seguros de Salud Individuales
               </h1>
-              <p className="text-xl text-muted-foreground">
+              <p className="text-xl text-white/90">
                 Compara y elige el plan Bupa perfecto para ti y tu familia
               </p>
             </div>
+          </div>
+        </section>
+
+        {/* Plans Section */}
+        <section className="py-20 bg-gradient-to-br from-primary/5 to-accent/5">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
 
             {/* Comparison Table */}
             <div className="mb-16">

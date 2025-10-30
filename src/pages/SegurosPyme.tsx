@@ -6,6 +6,7 @@ import ComparisonTable from "@/components/shared/ComparisonTable";
 import PymeCalculator from "@/components/pyme/PymeCalculator";
 import { pymePlans, pymeFeatures } from "@/data/plans";
 import { toast } from "sonner";
+import heroImage from "@/assets/seguros-pyme-hero.jpg";
 
 const SegurosPyme = () => {
   const handleSelectPlan = (planIndex: number) => {
@@ -22,19 +23,34 @@ const SegurosPyme = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
-        <section className="py-20 bg-gradient-to-br from-accent/5 to-primary/5">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto text-center mb-16">
+        {/* Hero Section with Image */}
+        <section className="relative h-[400px] flex items-center justify-center overflow-hidden">
+          <div className="absolute inset-0">
+            <img 
+              src={heroImage} 
+              alt="Equipo de pequeña empresa protegido con seguro PYME"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-accent/85 via-accent/75 to-primary/65" />
+          </div>
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="max-w-4xl mx-auto text-center text-white">
               <div className="flex justify-center mb-4">
-                <Users className="h-16 w-16 text-accent" />
+                <Users className="h-16 w-16 text-white" />
               </div>
               <h1 className="text-4xl sm:text-5xl font-bold mb-6">
                 Seguros para PYME
               </h1>
-              <p className="text-xl text-muted-foreground">
+              <p className="text-xl text-white/90">
                 Protege a tu equipo con planes corporativos de Bupa Seguros
               </p>
             </div>
+          </div>
+        </section>
+
+        {/* Content Section */}
+        <section className="py-20 bg-gradient-to-br from-accent/5 to-primary/5">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
 
             {/* Calculator Section */}
             <div className="mb-16">
