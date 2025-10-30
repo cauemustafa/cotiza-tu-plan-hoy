@@ -79,8 +79,8 @@ const HowItWorks = () => {
                       whileHover={{ scale: 1.1, rotate: 5 }}
                       className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-primary flex items-center justify-center shadow-elegant"
                     >
-                      {/* force icon color to black so it remains visible on light backgrounds */}
-                      <Icon className="h-10 w-10 text-black" />
+                      {/* use the site's foreground text color so icons match body text and follow dark mode */}
+                      <Icon className="h-10 w-10 text-foreground" />
                     </motion.div>
                   
                   <h3 className="text-xl font-bold mb-3">{step.title}</h3>
