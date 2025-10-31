@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Shield, Award, CheckCircle } from "lucide-react";
 import logoBupa from "@/assets/logo-bupa.jpg";
 import logoCruzBlanca from "@/assets/logo-cruzblanca.jpg";
+import logo from "@/assets/logo.png";
 
 const Footer = () => {
   return (
@@ -23,7 +24,11 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <h3 className="text-xl font-bold">Cotiza Tu Plan Hoy</h3>
+            <img 
+              src={logo} 
+              alt="Cotiza Tu Plan Hoy - Seguros de Salud" 
+              className="h-12 w-auto mb-2"
+            />
             <p className="text-sm text-primary-foreground/80">
               Corredor Oficial Bupa Seguros Chile
             </p>
