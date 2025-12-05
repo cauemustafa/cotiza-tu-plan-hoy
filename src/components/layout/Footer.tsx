@@ -1,24 +1,66 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Shield, Award, CheckCircle } from "lucide-react";
-import logoBupa from "@/assets/logo-bupa.jpg";
-import logoCruzBlanca from "@/assets/logo-cruzblanca.jpg";
 import logo from "@/assets/logo.png";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+
+// Partner logos
+import andesSalud from "@/assets/partners/andes-salud.png";
+import bupaAntofagasta from "@/assets/partners/bupa-antofagasta.svg";
+import bupaRenaca from "@/assets/partners/bupa-renaca.svg";
+import bupaSantiago from "@/assets/partners/bupa-santiago.svg";
+import clinicaSantaMaria from "@/assets/partners/clinica-santa-maria.png";
+import davila from "@/assets/partners/davila.svg";
+import integramedica from "@/assets/partners/integramedica.svg";
+
+const partners = [
+  { name: "Andes Salud", logo: andesSalud },
+  { name: "Bupa Clínica Antofagasta", logo: bupaAntofagasta },
+  { name: "Bupa Clínica Reñaca", logo: bupaRenaca },
+  { name: "Bupa Clínica Santiago", logo: bupaSantiago },
+  { name: "Clínica Santa María", logo: clinicaSantaMaria },
+  { name: "Clínica Dávila", logo: davila },
+  { name: "Integramédica", logo: integramedica },
+];
 
 const Footer = () => {
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Partner Logos Section */}
+        {/* Partner Logos Carousel */}
         <div className="mb-8 pb-8 border-b border-primary-foreground/20">
           <h4 className="text-center font-semibold mb-6 text-primary-foreground/90">Nuestros Socios</h4>
-          <div className="flex justify-center items-center gap-8 flex-wrap">
-            <div className="bg-white rounded-lg p-4 shadow-lg hover:scale-105 transition-transform">
-              <img src={logoBupa} alt="Bupa Seguros" className="h-12 w-auto object-contain" />
-            </div>
-            <div className="bg-white rounded-lg p-4 shadow-lg hover:scale-105 transition-transform">
-              <img src={logoCruzBlanca} alt="CruzBlanca Isapre" className="h-12 w-auto object-contain" />
-            </div>
-          </div>
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            plugins={[
+              Autoplay({
+                delay: 2500,
+                stopOnInteraction: false,
+              }),
+            ]}
+            className="w-full max-w-5xl mx-auto"
+          >
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {partners.map((partner, index) => (
+                <CarouselItem key={index} className="pl-2 md:pl-4 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5">
+                  <div className="bg-white rounded-lg p-4 shadow-lg hover:scale-105 transition-transform h-20 flex items-center justify-center">
+                    <img 
+                      src={partner.logo} 
+                      alt={partner.name} 
+                      className="h-12 w-auto max-w-full object-contain" 
+                    />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
