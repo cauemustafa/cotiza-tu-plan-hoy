@@ -40,29 +40,12 @@ const ComparisonTable = ({ plans, features, onSelectPlan }: ComparisonTableProps
       {/* Desktop View - Table */}
       <div className="hidden lg:block overflow-x-auto">
         <table className="w-full border-collapse">
-          <thead>
+      <thead>
             <tr className="border-b">
               <th className="text-left p-4 font-semibold">Características</th>
               {plans.map((plan, index) => (
-              <th key={index} className="p-4 text-center">
-                  <div className="flex flex-col gap-2">
-                    {plan.popular && (
-                      <Badge className="mx-auto">Más Popular</Badge>
-                    )}
-                    <h3 className="font-bold text-lg">{plan.name}</h3>
-                    <p className="text-2xl font-bold text-primary">{plan.price}</p>
-                    {plan.priceDetail && (
-                      <p className="text-xs text-muted-foreground">{plan.priceDetail}</p>
-                    )}
-                    <p className="text-sm text-muted-foreground">{plan.description}</p>
-                    <Button 
-                      onClick={() => onSelectPlan(index)}
-                      variant={plan.popular ? "default" : "outline"}
-                      className="mt-2"
-                    >
-                      Ver Detalles
-                    </Button>
-                  </div>
+                <th key={index} className="p-4 text-center font-bold text-lg">
+                  {plan.name}
                 </th>
               ))}
             </tr>
