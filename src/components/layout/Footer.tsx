@@ -33,7 +33,7 @@ const Footer = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Partner Logos Carousel */}
         <div className="mb-8 pb-8 border-b border-primary-foreground/20">
-          <h4 className="text-center font-semibold mb-6 text-primary-foreground/90">Nuestros Socios</h4>
+          <p className="text-center font-semibold mb-6 text-primary-foreground/90" role="heading" aria-level={2}>Nuestros Socios</p>
           <Carousel
             opts={{
               align: "start",
@@ -105,7 +105,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h4 className="font-semibold">Enlaces Rápidos</h4>
+            <p className="font-semibold" role="heading" aria-level={2}>Enlaces Rápidos</p>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/seguros-individuales" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
@@ -132,7 +132,7 @@ const Footer = () => {
 
           {/* Contact */}
           <div className="space-y-4">
-            <h4 className="font-semibold">Contacto</h4>
+            <p className="font-semibold" role="heading" aria-level={2}>Contacto</p>
             <ul className="space-y-2 text-sm">
               <li className="flex items-center gap-2 text-primary-foreground/90">
                 <Phone className="h-4 w-4" />
@@ -155,7 +155,7 @@ const Footer = () => {
 
           {/* Legal */}
           <div className="space-y-4">
-            <h4 className="font-semibold">Legal</h4>
+            <p className="font-semibold" role="heading" aria-level={2}>Legal</p>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/politica-privacidad" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
