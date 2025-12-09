@@ -4,51 +4,202 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { trackFormSubmit, trackWhatsAppClick } from "@/lib/analytics";
 import heroImage from "@/assets/contacto-hero.jpg";
+import { z } from "zod";
+
+// Chilean RUT validation
+const validateRut = (rut: string): boolean => {
+  if (!rut || rut.length < 8) return false;
+  const cleanRut = rut.replace(/[.-]/g, '').toUpperCase();
+  const body = cleanRut.slice(0, -1);
+  const dv = cleanRut.slice(-1);
+  
+  let sum = 0;
+  let multiplier = 2;
+  
+  for (let i = body.length - 1; i >= 0; i--) {
+    sum += parseInt(body[i]) * multiplier;
+    multiplier = multiplier === 7 ? 2 : multiplier + 1;
+  }
+  
+  const expectedDv = 11 - (sum % 11);
+  const calculatedDv = expectedDv === 11 ? '0' : expectedDv === 10 ? 'K' : String(expectedDv);
+  
+  return dv === calculatedDv;
+};
+
+// Form validation schema
+const formSchema = z.object({
+  nombre: z.string().min(3, "Nombre debe tener al menos 3 caracteres").max(100, "Nombre muy largo"),
+  email: z.string().email("Email inválido").max(255, "Email muy largo"),
+  telefono: z.string().min(8, "Teléfono debe tener al menos 8 dígitos").max(15, "Teléfono muy largo"),
+  edad: z.string().refine((val) => {
+    const num = parseInt(val);
+    return num >= 18 && num <= 120;
+  }, "Edad debe estar entre 18 y 120 años"),
+  rut: z.string().refine(validateRut, "RUT inválido"),
+  isapreActual: z.string().min(1, "Seleccione una Isapre"),
+  rangoSueldo: z.string().min(1, "Seleccione un rango de sueldo"),
+  cantidadCargas: z.string().min(1, "Seleccione cantidad de cargas"),
+  region: z.string().min(1, "Seleccione una región"),
+  mensaje: z.string().max(1000, "Mensaje muy largo").optional(),
+});
+
+type FormData = z.infer<typeof formSchema>;
+
+const ISAPRES = [
+  "Fonasa",
+  "Banmédica",
+  "Colmena",
+  "Consalud",
+  "CruzBlanca",
+  "Nueva Masvida",
+  "Vida Tres",
+  "Otra",
+];
+
+const RANGOS_SUELDO = [
+  "Menos de $500.000",
+  "$500.000 - $1.000.000",
+  "$1.000.000 - $1.500.000",
+  "$1.500.000 - $2.000.000",
+  "$2.000.000 - $3.000.000",
+  "Más de $3.000.000",
+];
+
+const CANTIDAD_CARGAS = ["0", "1", "2", "3", "4", "5 o más"];
+
+const REGIONES = [
+  "Arica y Parinacota",
+  "Tarapacá",
+  "Antofagasta",
+  "Atacama",
+  "Coquimbo",
+  "Valparaíso",
+  "Metropolitana",
+  "O'Higgins",
+  "Maule",
+  "Ñuble",
+  "Biobío",
+  "Araucanía",
+  "Los Ríos",
+  "Los Lagos",
+  "Aysén",
+  "Magallanes",
+];
 
 const Contacto = () => {
   const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    name: "",
+  const [formData, setFormData] = useState<FormData>({
+    nombre: "",
     email: "",
-    phone: "",
-    message: "",
+    telefono: "",
+    edad: "",
+    rut: "",
+    isapreActual: "",
+    rangoSueldo: "",
+    cantidadCargas: "",
+    region: "",
+    mensaje: "",
   });
+  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate form
+    const result = formSchema.safeParse(formData);
+    
+    if (!result.success) {
+      const fieldErrors: Partial<Record<keyof FormData, string>> = {};
+      result.error.errors.forEach((error) => {
+        const field = error.path[0] as keyof FormData;
+        fieldErrors[field] = error.message;
+      });
+      setErrors(fieldErrors);
+      toast({
+        title: "Error en el formulario",
+        description: "Por favor, corrige los campos marcados",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    setErrors({});
     
     // Track form submission
     trackFormSubmit('contact_form');
     trackWhatsAppClick('contact_form');
     
     // Create WhatsApp message
-    const whatsappMessage = `Hola! Mi nombre es ${formData.name}.
-Email: ${formData.email}
-Teléfono: ${formData.phone}
+    const whatsappMessage = `*Nueva Cotización de Isapre*
 
-Mensaje: ${formData.message}`;
+*Nombre:* ${formData.nombre}
+*Email:* ${formData.email}
+*Teléfono:* +56 ${formData.telefono}
+*Edad:* ${formData.edad} años
+*RUT:* ${formData.rut}
+*Isapre Actual:* ${formData.isapreActual}
+*Rango de Sueldo:* ${formData.rangoSueldo}
+*Cantidad de Cargas:* ${formData.cantidadCargas}
+*Región:* ${formData.region}
+${formData.mensaje ? `*Mensaje:* ${formData.mensaje}` : ''}`;
     
     const whatsappUrl = `https://wa.me/56928360499?text=${encodeURIComponent(whatsappMessage)}`;
     window.open(whatsappUrl, '_blank');
     
     toast({
-      title: "¡Gracias por tu mensaje!",
+      title: "¡Gracias por tu solicitud!",
       description: "Te contactaremos pronto por WhatsApp",
     });
     
-    setFormData({ name: "", email: "", phone: "", message: "" });
+    setFormData({
+      nombre: "",
+      email: "",
+      telefono: "",
+      edad: "",
+      rut: "",
+      isapreActual: "",
+      rangoSueldo: "",
+      cantidadCargas: "",
+      region: "",
+      mensaje: "",
+    });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (errors[name as keyof FormData]) {
+      setErrors(prev => ({ ...prev, [name]: undefined }));
+    }
+  };
+
+  const handleSelectChange = (name: keyof FormData, value: string) => {
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: undefined }));
+    }
+  };
+
+  // Format RUT as user types
+  const handleRutChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value.replace(/[^0-9kK]/g, '').toUpperCase();
+    if (value.length > 1) {
+      const dv = value.slice(-1);
+      const body = value.slice(0, -1);
+      const formattedBody = body.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      value = `${formattedBody}-${dv}`;
+    }
+    setFormData(prev => ({ ...prev, rut: value }));
+    if (errors.rut) {
+      setErrors(prev => ({ ...prev, rut: undefined }));
+    }
   };
 
   return (
@@ -68,10 +219,10 @@ Mensaje: ${formData.message}`;
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto text-center text-white">
             <h1 className="text-4xl sm:text-5xl font-bold mb-6">
-              Contáctanos
+              Encontramos tu Plan de Isapre Ideal
             </h1>
             <p className="text-xl text-white/90">
-              Estamos aquí para ayudarte a encontrar el seguro perfecto
+              Cotiza planes de isapres en un solo lugar
             </p>
           </div>
         </div>
@@ -85,73 +236,195 @@ Mensaje: ${formData.message}`;
               <div>
                 <Card className="shadow-card">
                   <CardHeader>
-                    <CardTitle>Envíanos un Mensaje</CardTitle>
+                    <CardTitle>Cotiza tu Plan</CardTitle>
                     <CardDescription>
-                      Completa el formulario y te responderemos en menos de 24 horas
+                      Completa el formulario y te contactaremos con las mejores opciones
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <form onSubmit={handleSubmit} className="space-y-4">
+                      {/* Row 1: Nombre y Email */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                          <label htmlFor="nombre" className="block text-sm font-medium mb-2">
+                            Nombre <span className="text-destructive">*</span>
+                          </label>
+                          <Input
+                            id="nombre"
+                            name="nombre"
+                            value={formData.nombre}
+                            onChange={handleChange}
+                            placeholder="Ingrese su nombre y apellido"
+                            className={errors.nombre ? 'border-destructive' : ''}
+                          />
+                          {errors.nombre && <p className="text-destructive text-xs mt-1">{errors.nombre}</p>}
+                        </div>
+                        <div>
+                          <label htmlFor="email" className="block text-sm font-medium mb-2">
+                            Correo Electrónico <span className="text-destructive">*</span>
+                          </label>
+                          <Input
+                            id="email"
+                            name="email"
+                            type="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            placeholder="Ingrese su correo electrónico"
+                            className={errors.email ? 'border-destructive' : ''}
+                          />
+                          {errors.email && <p className="text-destructive text-xs mt-1">{errors.email}</p>}
+                        </div>
+                      </div>
+
+                      {/* Row 2: Teléfono y Edad */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                          <label htmlFor="telefono" className="block text-sm font-medium mb-2">
+                            Teléfono <span className="text-destructive">*</span>
+                          </label>
+                          <div className="flex">
+                            <div className="flex items-center bg-muted rounded-l-md px-3 border border-r-0 border-input">
+                              <span className="text-lg">🇨🇱</span>
+                              <span className="ml-1 text-sm text-muted-foreground">+56</span>
+                            </div>
+                            <Input
+                              id="telefono"
+                              name="telefono"
+                              value={formData.telefono}
+                              onChange={handleChange}
+                              placeholder="9 1234 5678"
+                              className={`rounded-l-none ${errors.telefono ? 'border-destructive' : ''}`}
+                            />
+                          </div>
+                          {errors.telefono && <p className="text-destructive text-xs mt-1">{errors.telefono}</p>}
+                        </div>
+                        <div>
+                          <label htmlFor="edad" className="block text-sm font-medium mb-2">
+                            Edad <span className="text-destructive">*</span>
+                          </label>
+                          <Input
+                            id="edad"
+                            name="edad"
+                            type="number"
+                            min="18"
+                            max="120"
+                            value={formData.edad}
+                            onChange={handleChange}
+                            placeholder="Ingrese su edad"
+                            className={errors.edad ? 'border-destructive' : ''}
+                          />
+                          {errors.edad && <p className="text-destructive text-xs mt-1">{errors.edad}</p>}
+                        </div>
+                      </div>
+
+                      {/* Row 3: RUT */}
                       <div>
-                        <label htmlFor="name" className="block text-sm font-medium mb-2">
-                          Nombre Completo
+                        <label htmlFor="rut" className="block text-sm font-medium mb-2">
+                          RUT <span className="text-destructive">*</span>
                         </label>
                         <Input
-                          id="name"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleChange}
-                          placeholder="Juan Pérez"
-                          required
+                          id="rut"
+                          name="rut"
+                          value={formData.rut}
+                          onChange={handleRutChange}
+                          placeholder="12.345.678-9"
+                          className={errors.rut ? 'border-destructive' : ''}
                         />
+                        {errors.rut && <p className="text-destructive text-xs mt-1">{errors.rut}</p>}
                       </div>
-                      
+
+                      {/* Row 4: Isapre Actual */}
                       <div>
-                        <label htmlFor="email" className="block text-sm font-medium mb-2">
-                          Email
+                        <label className="block text-sm font-medium mb-2">
+                          Isapre Actual <span className="text-destructive">*</span>
                         </label>
-                        <Input
-                          id="email"
-                          name="email"
-                          type="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                          placeholder="juan@ejemplo.com"
-                          required
-                        />
+                        <Select value={formData.isapreActual} onValueChange={(value) => handleSelectChange('isapreActual', value)}>
+                          <SelectTrigger className={errors.isapreActual ? 'border-destructive' : ''}>
+                            <SelectValue placeholder="Seleccionar Isapre actual" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-background">
+                            {ISAPRES.map((isapre) => (
+                              <SelectItem key={isapre} value={isapre}>{isapre}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        {errors.isapreActual && <p className="text-destructive text-xs mt-1">{errors.isapreActual}</p>}
                       </div>
-                      
+
+                      {/* Row 5: Rango de sueldo y Cantidad de Cargas */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium mb-2">
+                            Rango de sueldo <span className="text-destructive">*</span>
+                          </label>
+                          <Select value={formData.rangoSueldo} onValueChange={(value) => handleSelectChange('rangoSueldo', value)}>
+                            <SelectTrigger className={errors.rangoSueldo ? 'border-destructive' : ''}>
+                              <SelectValue placeholder="Rango de Sueldo" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-background">
+                              {RANGOS_SUELDO.map((rango) => (
+                                <SelectItem key={rango} value={rango}>{rango}</SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          {errors.rangoSueldo && <p className="text-destructive text-xs mt-1">{errors.rangoSueldo}</p>}
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium mb-2">
+                            Cantidad de Cargas <span className="text-destructive">*</span>
+                          </label>
+                          <Select value={formData.cantidadCargas} onValueChange={(value) => handleSelectChange('cantidadCargas', value)}>
+                            <SelectTrigger className={errors.cantidadCargas ? 'border-destructive' : ''}>
+                              <SelectValue placeholder="Cantidad de Cargas" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-background">
+                              {CANTIDAD_CARGAS.map((cantidad) => (
+                                <SelectItem key={cantidad} value={cantidad}>{cantidad}</SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          {errors.cantidadCargas && <p className="text-destructive text-xs mt-1">{errors.cantidadCargas}</p>}
+                        </div>
+                      </div>
+
+                      {/* Row 6: Región */}
                       <div>
-                        <label htmlFor="phone" className="block text-sm font-medium mb-2">
-                          Teléfono
+                        <label className="block text-sm font-medium mb-2">
+                          Región <span className="text-destructive">*</span>
                         </label>
-                        <Input
-                          id="phone"
-                          name="phone"
-                          value={formData.phone}
-                          onChange={handleChange}
-                          placeholder="+56 9 1234 5678"
-                          required
-                        />
+                        <Select value={formData.region} onValueChange={(value) => handleSelectChange('region', value)}>
+                          <SelectTrigger className={errors.region ? 'border-destructive' : ''}>
+                            <SelectValue placeholder="Seleccione su Región" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-background">
+                            {REGIONES.map((region) => (
+                              <SelectItem key={region} value={region}>{region}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        {errors.region && <p className="text-destructive text-xs mt-1">{errors.region}</p>}
                       </div>
-                      
+
+                      {/* Row 7: Mensaje */}
                       <div>
-                        <label htmlFor="message" className="block text-sm font-medium mb-2">
+                        <label htmlFor="mensaje" className="block text-sm font-medium mb-2">
                           Mensaje
                         </label>
                         <Textarea
-                          id="message"
-                          name="message"
-                          value={formData.message}
+                          id="mensaje"
+                          name="mensaje"
+                          value={formData.mensaje}
                           onChange={handleChange}
-                          placeholder="Cuéntanos qué tipo de seguro necesitas..."
-                          rows={5}
-                          required
+                          placeholder="Opcionalmente podrás indicarnos el valor de tu plan actual, edad de tus cargas, clínicas o isapres de preferencia, si cuentas con algún seguro complementario, etc."
+                          rows={4}
+                          className={errors.mensaje ? 'border-destructive' : ''}
                         />
+                        {errors.mensaje && <p className="text-destructive text-xs mt-1">{errors.mensaje}</p>}
                       </div>
-                      
+
+                      {/* Submit Button */}
                       <Button type="submit" className="w-full gradient-primary">
-                        Enviar Mensaje
+                        Cotizar Ahora
                       </Button>
                     </form>
                   </CardContent>

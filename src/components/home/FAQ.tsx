@@ -5,7 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import faqIllustration from "@/assets/faq-illustration.jpg";
+import faqIllustration from "@/assets/faq-illustration.png";
 
 const FAQ = () => {
   const faqs = [
@@ -26,7 +26,7 @@ const FAQ = () => {
       answer: "Los seguros complementarios (Bupa) cubren gastos que no cubre tu Fonasa o Isapre. Las Isapres (como CruzBlanca) son instituciones de salud previsional que reemplazan a Fonasa. Te ayudamos a elegir la mejor combinación.",
     },
     {
-      question: "¿Ofrecen planes para empresas pequeñas?",
+      question: "¿Ofrecen planes para PYME?",
       answer: "¡Sí! Tenemos planes PYME desde 2 personas. Los seguros corporativos ofrecen mejores precios y beneficios adicionales para tus colaboradores.",
     },
     {
@@ -62,6 +62,10 @@ const FAQ = () => {
                 src={faqIllustration} 
                 alt="Preguntas Frecuentes"
                 className="w-full rounded-2xl shadow-elegant"
+                width={612}
+                height={459}
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent rounded-2xl" />
             </div>
