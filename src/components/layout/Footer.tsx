@@ -79,10 +79,10 @@ const Footer = () => {
               loading="lazy"
               decoding="async"
             />
-            <p className="text-sm text-primary-foreground/80">
+            <p className="text-sm text-primary-foreground/90">
               Corredor Oficial Bupa Seguros Chile
             </p>
-            <p className="text-sm text-primary-foreground/80">
+            <p className="text-sm text-primary-foreground/90">
               Paloma Ramirez
             </p>
             
@@ -108,22 +108,22 @@ const Footer = () => {
             <h4 className="font-semibold">Enlaces Rápidos</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link to="/seguros-individuales" className="text-primary-foreground/80 hover:text-primary-foreground transition-smooth">
+                <Link to="/seguros-individuales" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
                   Seguros Individuales
                 </Link>
               </li>
               <li>
-                <Link to="/seguros-pyme" className="text-primary-foreground/80 hover:text-primary-foreground transition-smooth">
+                <Link to="/seguros-pyme" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
                   Seguros PYME
                 </Link>
               </li>
               <li>
-                <Link to="/isapre" className="text-primary-foreground/80 hover:text-primary-foreground transition-smooth">
+                <Link to="/isapre" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
                   Isapre
                 </Link>
               </li>
               <li>
-                <Link to="/contacto" className="text-primary-foreground/80 hover:text-primary-foreground transition-smooth">
+                <Link to="/contacto" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
                   Contacto
                 </Link>
               </li>
@@ -134,19 +134,19 @@ const Footer = () => {
           <div className="space-y-4">
             <h4 className="font-semibold">Contacto</h4>
             <ul className="space-y-2 text-sm">
-              <li className="flex items-center gap-2 text-primary-foreground/80">
+              <li className="flex items-center gap-2 text-primary-foreground/90">
                 <Phone className="h-4 w-4" />
                 <a href="tel:+56928360499" className="hover:text-primary-foreground transition-smooth">
                   +56 9 2836 0499
                 </a>
               </li>
-              <li className="flex items-center gap-2 text-primary-foreground/80">
+              <li className="flex items-center gap-2 text-primary-foreground/90">
                 <Mail className="h-4 w-4" />
                 <a href="mailto:contacto@cotizatuplanhoy.cl" className="hover:text-primary-foreground transition-smooth">
                   contacto@cotizatuplanhoy.cl
                 </a>
               </li>
-              <li className="flex items-start gap-2 text-primary-foreground/80">
+              <li className="flex items-start gap-2 text-primary-foreground/90">
                 <MapPin className="h-4 w-4 mt-1 flex-shrink-0" />
                 <span>Chile</span>
               </li>
@@ -158,12 +158,12 @@ const Footer = () => {
             <h4 className="font-semibold">Legal</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link to="/politica-privacidad" className="text-primary-foreground/80 hover:text-primary-foreground transition-smooth">
+                <Link to="/politica-privacidad" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
                   Política de Privacidad
                 </Link>
               </li>
               <li>
-                <Link to="/terminos-condiciones" className="text-primary-foreground/80 hover:text-primary-foreground transition-smooth">
+                <Link to="/terminos-condiciones" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
                   Términos y Condiciones
                 </Link>
               </li>
@@ -171,7 +171,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-primary-foreground/20 text-center text-sm text-primary-foreground/80 space-y-2">
+        <div className="mt-8 pt-8 border-t border-primary-foreground/20 text-center text-sm text-primary-foreground/90 space-y-2">
           <p>© {new Date().getFullYear()} Cotiza Tu Plan Hoy. Todos los derechos reservados.</p>
           <p className="flex items-center justify-center gap-2">
             Desarrollado por Cauê Mustafá
