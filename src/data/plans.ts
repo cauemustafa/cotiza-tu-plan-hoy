@@ -23,8 +23,8 @@ export const individualPlans = [
   },
   {
     name: "Bupa + Protección Ambulatorio 70",
-    price: "Consultar",
-    priceDetail: "",
+    price: "Desde $22.507*",
+    priceDetail: "(*) UF 0,57 mensual",
     description: "Amplía tu cobertura Fonasa",
     popular: false
   }
@@ -49,10 +49,10 @@ export const individualFeatures = [
   },
   {
     name: "Beneficio dental",
-    values: [false, true, false, "IntegraMédica"]
+    values: [true, true, true, "IntegraMédica"]
   },
   {
-    name: "Sin deducible",
+    name: "Sin deducible*",
     values: [true, true, true, false]
   },
   {

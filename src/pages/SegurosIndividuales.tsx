@@ -66,9 +66,10 @@ const SegurosIndividuales = () => {
 
             {/* Comparison Table */}
             <div className="mb-16">
-              <h2 className="text-3xl font-bold text-center mb-8">
+              <h2 className="text-3xl font-bold text-center mb-4">
                 Compara Nuestros Planes
               </h2>
+              <p className="text-sm text-muted-foreground text-center mb-8">*Sin deducible en Red de prestadores Bupa</p>
               <ComparisonTable 
                 plans={individualPlans}
                 features={individualFeatures}

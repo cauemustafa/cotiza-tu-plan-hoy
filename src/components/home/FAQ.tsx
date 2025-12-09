@@ -26,7 +26,7 @@ const FAQ = () => {
       answer: "Los seguros complementarios (Bupa) cubren gastos que no cubre tu Fonasa o Isapre. Las Isapres (como CruzBlanca) son instituciones de salud previsional que reemplazan a Fonasa. Te ayudamos a elegir la mejor combinación.",
     },
     {
-      question: "¿Ofrecen planes para empresas pequeñas?",
+      question: "¿Ofrecen planes para PYME?",
       answer: "¡Sí! Tenemos planes PYME desde 2 personas. Los seguros corporativos ofrecen mejores precios y beneficios adicionales para tus colaboradores.",
     },
     {
