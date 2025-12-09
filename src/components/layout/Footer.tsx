@@ -54,7 +54,11 @@ const Footer = () => {
                     <img 
                       src={partner.logo} 
                       alt={partner.name} 
-                      className="h-12 w-auto max-w-full object-contain" 
+                      className="h-12 w-auto max-w-full object-contain"
+                      width={48}
+                      height={48}
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 </CarouselItem>
@@ -70,6 +74,10 @@ const Footer = () => {
               src={logo} 
               alt="Cotiza Tu Plan Hoy - Seguros de Salud" 
               className="h-12 w-auto mb-2"
+              width={48}
+              height={48}
+              loading="lazy"
+              decoding="async"
             />
             <p className="text-sm text-primary-foreground/80">
               Corredor Oficial Bupa Seguros Chile
