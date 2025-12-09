@@ -64,6 +64,10 @@ const ServicesSection = () => {
                       src={service.image} 
                       alt={service.title}
                       className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                      width={400}
+                      height={256}
+                      loading="lazy"
+                      decoding="async"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent" />
                     <div className={`absolute bottom-4 left-4 w-12 h-12 rounded-lg bg-white shadow-lg flex items-center justify-center ${service.color}`}>

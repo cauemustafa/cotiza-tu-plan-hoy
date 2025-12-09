@@ -62,6 +62,10 @@ const FAQ = () => {
                 src={faqIllustration} 
                 alt="Preguntas Frecuentes"
                 className="w-full rounded-2xl shadow-elegant"
+                width={612}
+                height={459}
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent rounded-2xl" />
             </div>
