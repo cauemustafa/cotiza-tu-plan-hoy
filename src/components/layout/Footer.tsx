@@ -70,15 +70,17 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <img 
-              src={logo} 
-              alt="Cotiza Tu Plan Hoy - Seguros de Salud" 
-              className="h-12 w-auto mb-2"
-              width={48}
-              height={48}
-              loading="lazy"
-              decoding="async"
-            />
+            <div className="bg-white rounded-lg p-2 inline-block mb-2">
+              <img 
+                src={logo} 
+                alt="Cotiza Tu Plan Hoy - Seguros de Salud" 
+                className="h-16 w-auto"
+                width={64}
+                height={64}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
             <p className="text-sm text-primary-foreground/90">
               Corredor Oficial Bupa Seguros Chile
             </p>
