@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Phone, Shield, Heart } from "lucide-react";
+import { Phone, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { trackWhatsAppClick } from "@/lib/analytics";
 import heroImage from "@/assets/hero-health-insurance.jpg";
+import logo from "@/assets/logo.svg";
 
 const Hero = () => {
   const handleWhatsAppClick = () => {
@@ -40,7 +41,9 @@ const Hero = () => {
             transition={{ duration: 0.5 }}
             className="flex justify-center mb-6"
           >
-            <Shield className="h-16 w-16 text-white/90" />
+            <div className="bg-white rounded-xl p-3 shadow-lg">
+              <img src={logo} alt="Cotiza Tu Plan Hoy" className="h-16 w-auto" />
+            </div>
           </motion.div>
           
           <motion.h1
@@ -105,7 +108,7 @@ const Hero = () => {
               whileHover={{ scale: 1.05 }}
               className="flex items-center gap-2"
             >
-              <Shield className="h-5 w-5" />
+              <Heart className="h-5 w-5" />
               <span className="text-sm font-medium">Asesoría Gratuita</span>
             </motion.div>
             <motion.div

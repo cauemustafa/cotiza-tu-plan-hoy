@@ -24,7 +24,7 @@ const Header = () => {
             <img 
               src={logo} 
               alt="Cotiza Tu Plan Hoy - Seguros de Salud" 
-              className="h-14 md:h-20 w-auto"
+              className="h-16 md:h-24 w-auto"
             />
           </Link>
 
