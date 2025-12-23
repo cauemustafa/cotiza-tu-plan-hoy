@@ -70,13 +70,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <div className="bg-white rounded-lg p-2 inline-block mb-2">
+            <div className="bg-white rounded-lg p-3 inline-block mb-2">
               <img 
                 src={logo} 
                 alt="Cotiza Tu Plan Hoy - Seguros de Salud" 
-                className="h-16 w-auto"
-                width={64}
-                height={64}
+                className="h-20 w-auto"
+                width={80}
+                height={80}
                 loading="lazy"
                 decoding="async"
               />
