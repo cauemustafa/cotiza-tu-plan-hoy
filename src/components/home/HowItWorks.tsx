@@ -16,7 +16,7 @@ const HowItWorks = () => {
     {
       icon: CheckCircle,
       title: "3. ¡Listo!",
-      description: "Gestionamos todo el proceso. En 24-48 horas tendrás tu seguro activo.",
+      description: "Gestionamos todo el proceso en menos de 24 horas.",
     },
   ];
 
@@ -79,7 +79,7 @@ const HowItWorks = () => {
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-primary flex items-center justify-center shadow-elegant"
                   >
-                    <Icon className="h-10 w-10 text-white" />
+                    <Icon className="h-10 w-10" />
                   </motion.div>
                   
                   <h3 className="text-xl font-bold mb-3">{step.title}</h3>
