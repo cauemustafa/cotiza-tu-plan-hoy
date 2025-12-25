@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/logo.svg";
+import logoWebp from "@/assets/optimized/logo-512.webp";
+import logoPng from "@/assets/optimized/logo-512.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,11 +22,18 @@ const Header = () => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <img 
-              src={logo} 
-              alt="Cotiza Tu Plan Hoy - Seguros de Salud" 
-              className="h-14 md:h-20 w-auto"
-            />
+            <picture className="max-h-24">
+              <source srcSet={logoWebp} type="image/webp" />
+              <img
+                src={logoPng}
+                alt="Cotiza Tu Plan Hoy - Seguros de Salud"
+                className="h-16 md:h-24 w-auto max-w-[220px] object-contain"
+                width={220}
+                height={80}
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
           </Link>
 
           {/* Desktop Navigation */}
