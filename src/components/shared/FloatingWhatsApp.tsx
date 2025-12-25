@@ -5,16 +5,16 @@ import { useState } from "react";
 const FloatingWhatsApp = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleWhatsAppClick = () => {
+  const handleWhatsAppClick = async () => {
     const message = "¡Hola! Me gustaría obtener más información sobre los planes de seguros.";
     window.open(`https://wa.me/56928360499?text=${encodeURIComponent(message)}`, '_blank');
-    
-    // Track event if analytics is available
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'whatsapp_click', {
-        event_category: 'engagement',
-        event_label: 'floating_button'
-      });
+
+    // Track event via analytics helper if available (dynamic import to avoid bundling analytics with main bundle)
+    try {
+      const mod = await import('@/lib/analytics');
+      if (typeof mod.trackWhatsAppClick === 'function') mod.trackWhatsAppClick('floating_button');
+    } catch (e) {
+      // ignore — analytics may not be loaded or consented
     }
   };
 

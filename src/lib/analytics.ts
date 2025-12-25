@@ -28,10 +28,17 @@ export const isGtagLoaded = () => _loaded;
  * - Avoids double-loading
  * - Optional nonce for CSP
  */
-export const loadGtag = (id = GA_ID, options?: { nonce?: string; anonymizeIp?: boolean }) => {
+export const loadGtag = (
+	id = GA_ID,
+	options?: { nonce?: string; anonymizeIp?: boolean }
+) => {
 	if (!id || typeof window === 'undefined' || _loaded) return;
 	if (!import.meta.env.PROD) return;
-	if (typeof navigator !== 'undefined' && ((navigator as Navigator & { doNotTrack?: string }).doNotTrack === '1')) return;
+	if (
+		typeof navigator !== 'undefined' &&
+		(navigator as Navigator & { doNotTrack?: string }).doNotTrack === '1'
+	)
+		return;
 
 	const { nonce, anonymizeIp = true } = options || {};
 
@@ -72,8 +79,19 @@ export const event = (action: string, params: Record<string, unknown> = {}) => {
 };
 
 // Convenience wrappers
-export const trackFormSubmit = (formName: string) => event('form_submit', { event_category: 'engagement', event_label: formName });
-export const trackWhatsAppClick = (location: string) => event('whatsapp_click', { event_category: 'engagement', event_label: location });
-export const trackPhoneClick = (location: string) => event('phone_click', { event_category: 'engagement', event_label: location });
-export const trackPlanView = (planType: string) => event('plan_view', { event_category: 'engagement', event_label: planType });
-export const trackQuoteRequest = (planType: string) => event('quote_request', { event_category: 'conversion', event_label: planType });
+export const trackFormSubmit = (formName: string) =>
+	event('form_submit', { event_category: 'engagement', event_label: formName });
+export const trackWhatsAppClick = (location: string) =>
+	event('whatsapp_click', {
+		event_category: 'engagement',
+		event_label: location,
+	});
+export const trackPhoneClick = (location: string) =>
+	event('phone_click', { event_category: 'engagement', event_label: location });
+export const trackPlanView = (planType: string) =>
+	event('plan_view', { event_category: 'engagement', event_label: planType });
+export const trackQuoteRequest = (planType: string) =>
+	event('quote_request', {
+		event_category: 'conversion',
+		event_label: planType,
+	});

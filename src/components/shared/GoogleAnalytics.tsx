@@ -1,42 +1,25 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-
-// Replace with your actual GA4 Measurement ID
-const GA_MEASUREMENT_ID = 'G-XXXXXXXXXX';
+import { loadGtag, pageview } from '@/lib/analytics';
 
 const GoogleAnalytics = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // Track page views on route change
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('config', GA_MEASUREMENT_ID, {
-        page_path: location.pathname + location.search,
-      });
+    // If the user already consented, load gtag and send initial pageview
+    const consent = typeof window !== 'undefined' ? localStorage.getItem('cookieConsent') : null;
+    if (consent === 'accepted') {
+      loadGtag();
+      pageview(window.location.pathname + window.location.search);
     }
+  }, []);
+
+  useEffect(() => {
+    // send pageview on route change (if loaded)
+    pageview(location.pathname + location.search);
   }, [location]);
 
-  return (
-    <>
-      {/* Google Analytics */}
-      <script
-        async
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-      />
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_MEASUREMENT_ID}', {
-              page_path: window.location.pathname,
-            });
-          `,
-        }}
-      />
-    </>
-  );
+  return null; // No static script tags: loading is handled by loadGtag (on consent)
 };
 
 export default GoogleAnalytics;
