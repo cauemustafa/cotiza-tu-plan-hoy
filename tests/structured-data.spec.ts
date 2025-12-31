@@ -69,21 +69,18 @@ for (const route of routes) {
 		// If required for the route, assert there is an Offer with numeric price and CLP currency
 		if (expectations[route].requireOfferWithPrice) {
 			const hasOfferWithPrice = parsed.some((o) => {
-				if (
-					!isProduct(o) ||
-					(o as Record<string, unknown>)['@type'] !== 'Product'
-				)
-					return false;
-				const offers = (o as Record<string, unknown>)['offers'];
+				if (!(isProduct(o) && (o as any)?.['@type'] === 'Product')) return false;
+
+				const offers = (o as any)?.offers;
 				if (!offers) return false;
-				const arr = Array.isArray(offers) ? offers : [offers];
-				return arr.some((of) => {
-					if (typeof of !== 'object' || of === null) return false;
-					const ro = of as Record<string, unknown>;
+
+				const offerArray = Array.isArray(offers) ? offers : [offers];
+
+				return offerArray.some((offer: any) => {
 					return (
-						typeof ro['price'] === 'number' &&
-						(ro['price'] as number) > 0 &&
-						ro['priceCurrency'] === 'CLP'
+						typeof offer?.price === 'number' &&
+						offer.price > 0 &&
+						offer?.priceCurrency === 'CLP'
 					);
 				});
 			});
