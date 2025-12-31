@@ -12,7 +12,7 @@ const ServicesSection = () => {
     {
       icon: Users,
       title: "Seguros Individuales",
-      description: "4 planes Bupa diseñados para ti y tu familia. Cobertura completa con la mejor calidad.",
+      description: "Planes Bupa diseñados para ti y tu familia. Cobertura completa con la mejor calidad.",
       link: "/seguros-individuales",
       color: "text-primary",
       image: segurosIndividualesImg,
@@ -20,7 +20,7 @@ const ServicesSection = () => {
     {
       icon: Building2,
       title: "Seguros PYME",
-      description: "Protege a tu equipo con 4 planes especiales para empresas. Beneficios corporativos.",
+      description: "Protege a tu equipo con planes especiales para empresas. Beneficios corporativos.",
       link: "/seguros-pyme",
       color: "text-accent",
       image: segurosPymeImg,
@@ -28,7 +28,7 @@ const ServicesSection = () => {
     {
       icon: Heart,
       title: "Isapre",
-      description: "2 planes CruzBlanca con cobertura integral. La mejor opción en salud previsional.",
+      description: "Planes CruzBlanca con cobertura integral. La mejor opción en salud previsional.",
       link: "/isapre",
       color: "text-primary",
       image: isapreImg,

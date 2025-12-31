@@ -91,7 +91,7 @@ const SegurosIndividuales = () => {
                 Nuestros asesores están listos para ayudarte a encontrar la cobertura perfecta
               </p>
               <a href={genericWhatsappUrl} target="_blank" rel="noopener noreferrer">
-                <Button size="lg" className="gradient-primary">
+                <Button size="lg" className="gradient-accent">
                   <Phone className="mr-2 h-5 w-5" />
                   Habla con un Asesor Gratis
                 </Button>

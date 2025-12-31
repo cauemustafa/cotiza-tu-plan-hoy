@@ -18,10 +18,20 @@ const GoogleAnalytics = ({ nonce }: { nonce?: string } = {}) => {
 
   // Track pageviews on route changes
   useEffect(() => {
+    // If the user already consented, load gtag and send initial pageview
+    const consent = typeof window !== 'undefined' ? localStorage.getItem('cookieConsent') : null;
+    if (consent === 'accepted') {
+      loadGtag();
+      pageview(window.location.pathname + window.location.search);
+    }
+  }, []);
+
+  useEffect(() => {
+    // send pageview on route change (if loaded)
     pageview(location.pathname + location.search);
   }, [location]);
 
-  return null;
+  return null; // No static script tags: loading is handled by loadGtag (on consent)
 };
 
 export default GoogleAnalytics;

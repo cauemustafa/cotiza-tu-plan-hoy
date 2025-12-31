@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Phone, Users } from "lucide-react";
 import ComparisonTable from "@/components/shared/ComparisonTable";
 import PlanCards from "@/components/shared/PlanCards";
-import PymeCalculator from "@/components/pyme/PymeCalculator";
 import { pymePlans, pymeFeatures } from "@/data/plans";
 import { toast } from "sonner";
 import heroImage from "@/assets/seguros-pyme-hero.jpg";
@@ -60,7 +59,7 @@ const SegurosPyme = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
 
             {/* Plan Cards */}
-            <div className="mb-16">
+            <div className="mb-16 flex-col items-center">
               <h2 className="text-3xl font-bold text-center mb-4">
                 Nuestros Planes Corporativos
               </h2>
@@ -72,14 +71,6 @@ const SegurosPyme = () => {
                 onSelectPlan={handleSelectPlan}
                 variant="pyme"
               />
-            </div>
-
-            {/* Calculator Section */}
-            <div className="mb-16">
-              <h2 className="text-3xl font-bold text-center mb-8">
-                Calcula tu Plan Empresarial
-              </h2>
-              <PymeCalculator />
             </div>
 
             {/* Comparison Table */}
@@ -113,7 +104,7 @@ const SegurosPyme = () => {
               <a href={genericWhatsappUrl} target="_blank" rel="noopener noreferrer">
                 <Button size="lg" className="gradient-primary">
                   <Phone className="mr-2 h-5 w-5" />
-                  Solicitar Cotización Empresarial
+                  Solicitar Cotización PLanes PYME
                 </Button>
               </a>
             </div>

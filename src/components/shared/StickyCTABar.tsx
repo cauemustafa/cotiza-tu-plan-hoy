@@ -1,8 +1,8 @@
 import { motion, useScroll } from "framer-motion";
-import { Phone, MessageCircle } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
-import { trackPhoneClick, trackWhatsAppClick } from "@/lib/analytics";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
 const StickyCTABar = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -10,18 +10,27 @@ const StickyCTABar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show after scrolling 300px
-      setIsVisible(scrollY.get() > 300);
+      // Show after scrolling 300px, but hide when at/near the bottom of the page
+      const scrolledPastThreshold = scrollY.get() > 300;
+
+      let scrolledToBottom = false;
+      if (typeof window !== 'undefined') {
+        const scrollPosition = window.scrollY || 0;
+        const windowHeight = window.innerHeight || 0;
+        const docHeight = document.documentElement?.scrollHeight || 0;
+        // threshold (px) from the bottom to consider "at bottom"
+        const bottomThreshold = 100;
+        scrolledToBottom = (scrollPosition + windowHeight) >= (docHeight - bottomThreshold);
+      }
+
+      setIsVisible(scrolledPastThreshold && !scrolledToBottom);
     };
 
     const unsubscribe = scrollY.on("change", handleScroll);
+    // call once to set initial visibility
+    handleScroll();
     return () => unsubscribe();
   }, [scrollY]);
-
-  const handlePhoneClick = () => {
-    window.location.href = "tel:+56928360499";
-    trackPhoneClick('sticky_cta_bar');
-  };
 
   const handleWhatsAppClick = () => {
     const message = "¡Hola! Me gustaría obtener una cotización.";
@@ -37,14 +46,6 @@ const StickyCTABar = () => {
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
     >
       <div className="flex gap-2 p-3">
-        <Button
-          onClick={handlePhoneClick}
-          className="flex-1 bg-white/10 hover:bg-white/20 text-white border-white/30"
-          size="lg"
-        >
-          <Phone className="mr-2 h-5 w-5" />
-          Llamar
-        </Button>
         <Button
           onClick={handleWhatsAppClick}
           className="flex-1 bg-[#25D366] hover:bg-[#20BA5A] text-white"

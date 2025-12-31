@@ -1,153 +1,134 @@
 // Seguros Individuales Plans - Bupa
 export const individualPlans = [
-  {
-    name: "Bupa Multisalud",
-    price: "Desde $55.152*",
-    priceDetail: "(*) UF 1,40 mensual",
-    description: "¡Ahora sin deducible!",
-    popular: false
-  },
-  {
-    name: "Bupa Cuidado Total",
-    price: "Desde $33.879*",
-    priceDetail: "(*) UF 0,86 mensual",
-    description: "¡Ahora sin deducible!",
-    popular: true
-  },
-  {
-    name: "Bupa + Protección",
-    price: "Desde $29.546*",
-    priceDetail: "(*) UF 0,75 mensual",
-    description: "¡Ahora sin deducible!",
-    popular: false
-  },
-  {
-    name: "Bupa + Protección Ambulatorio 70",
-    price: "Desde $22.507*",
-    priceDetail: "(*) UF 0,57 mensual",
-    description: "Amplía tu cobertura Fonasa",
-    popular: false
-  }
+	{
+		name: 'Bupa Multisalud',
+		price: 'Desde $55.501*',
+		priceDetail: '(*) UF 1,40 mensual',
+		description: '¡Ahora sin deducible!',
+		popular: false,
+	},
+	{
+		name: 'Bupa Cuidado Total',
+		price: 'Desde $33.879*',
+		priceDetail: '(*) UF 0,86 mensual',
+		description: '¡Ahora sin deducible!',
+		popular: true,
+	},
+	{
+		name: 'Bupa + Protección',
+		price: 'Desde $29.546*',
+		priceDetail: '(*) UF 0,75 mensual',
+		description: '¡Ahora sin deducible!',
+		popular: false,
+	},
+	{
+		name: 'Bupa + Protección Ambulatorio 70',
+		price: 'Desde $22.507*',
+		priceDetail: '(*) UF 0,57 mensual',
+		description: 'Amplía tu cobertura Fonasa',
+		popular: false,
+	},
 ];
 
 export const individualFeatures = [
-  {
-    name: "Cobertura Fonasa",
-    values: ["Complementa", "Completa", "Amplía", "Amplía"]
-  },
-  {
-    name: "Accede a diferentes coberturas",
-    values: [true, true, true, true]
-  },
-  {
-    name: "Cobertura sobre copago",
-    values: ["Hasta 90%", "Hasta 80%", "Hasta 80%", "Hasta 70%"]
-  },
-  {
-    name: "Extensión cobertura catastrófica",
-    values: [true, false, true, false]
-  },
-  {
-    name: "Beneficio dental",
-    values: [true, true, true, "IntegraMédica"]
-  },
-  {
-    name: "Sin deducible*",
-    values: [true, true, true, false]
-  },
-  {
-    name: "Red de prestadores",
-    values: ["Premium", "Amplia", "Básica", "IntegraMédica"]
-  },
-  {
-    name: "Urgencias",
-    values: [true, true, true, true]
-  },
-  {
-    name: "Hospitalización",
-    values: [true, true, true, false]
-  },
-  {
-    name: "Consultas médicas",
-    values: [true, true, true, true]
-  }
+	{
+		name: 'Cobertura Fonasa',
+		values: ['Complementa', 'Complementa', 'Amplía', 'Amplía'],
+	},
+	{
+		name: 'Accede a diferentes coberturas',
+		values: [true, true, true, true],
+	},
+	{
+		name: 'Cobertura sobre copago',
+		values: ['Hasta 90%', 'Hasta 80%', 'Hasta 80%', 'Hasta 70%'],
+	},
+	{
+		name: 'Extensión cobertura catastrófica',
+		values: [true, false, true, false],
+	},
+	{
+		name: 'Beneficio dental',
+		values: [true, true, true, true],
+	},
+	{
+		name: 'Sin deducible *Red prestadores Bupa',
+		values: [true, true, true, false],
+	},
+	{
+		name: 'Urgencias',
+		values: [true, true, true, true],
+	},
+	{
+		name: 'Hospitalización',
+		values: [true, true, true, false],
+	},
+	{
+		name: 'Consultas médicas',
+		values: [true, true, true, true],
+	},
 ];
 
 // Seguros PYME Plans
 export const pymePlans = [
-  {
-    name: "Starter PYME",
-    price: "$35.000/persona",
-    description: "5-20 colaboradores",
-    popular: false
-  },
-  {
-    name: "Growth PYME",
-    price: "$32.000/persona",
-    description: "21-50 colaboradores",
-    popular: true
-  },
-  {
-    name: "Business PYME",
-    price: "$28.000/persona",
-    description: "51-100 colaboradores",
-    popular: false
-  },
-  {
-    name: "Enterprise PYME",
-    price: "$25.000/persona",
-    description: "101+ colaboradores",
-    popular: false
-  }
+	{
+		name: 'PYME 50%',
+		price: '$12.411/persona',
+		priceDetail: '0,3133 UF',
+		description: '5 y 350 colaboradores',
+		popular: false,
+	},
+	{
+		name: 'PYME 70%',
+		price: '$23.134/persona',
+		priceDetail: '0,5060 UF',
+		description: '5 y 350 colaboradores',
+		popular: true,
+	},
+	{
+		name: 'PYME 80%',
+		price: '$24.271/persona',
+		priceDetail: '0,6127 UF',
+		description: 'Desde 15 colaboradores',
+		popular: false,
+	},
 ];
 
 export const pymeFeatures = [
-  {
-    name: "Cobertura ambulatoria",
-    values: [true, true, true, true]
-  },
-  {
-    name: "Hospitalización",
-    values: ["Hasta $10M", "Hasta $20M", "Hasta $30M", "Ilimitado"]
-  },
-  {
-    name: "Urgencias",
-    values: [true, true, true, true]
-  },
-  {
-    name: "Maternidad",
-    values: [false, true, true, true]
-  },
-  {
-    name: "Dental corporativo",
-    values: ["Básico", "Básico", "Completo", "Completo"]
-  },
-  {
-    name: "Medicina preventiva",
-    values: [true, true, true, true]
-  },
-  {
-    name: "Salud mental",
-    values: [false, true, true, true]
-  },
-  {
-    name: "Chequeos anuales",
-    values: [false, true, true, true]
-  },
-  {
-    name: "Gestor de cuenta",
-    values: [false, false, true, true]
-  },
-  {
-    name: "App móvil empresa",
-    values: [false, true, true, true]
-  },
-  {
-    name: "Reportes mensuales",
-    values: [false, false, true, true]
-  },
-  {
-    name: "Capacitaciones",
-    values: [false, false, "2 al año", "4 al año"]
-  }
+	{
+		name: 'Cobertura ambulatoria y hospitalaria',
+		values: ['50%', '70%', '80%'],
+	},
+	{
+		name: 'Maximo anual por assegurado (UF)',
+		values: ['350 UF', '350 UF', '400 UF'],
+	},
+	{
+		name: 'Consultas médicas y especialidades',
+		values: [true, true, true],
+	},
+	{
+		name: 'Maternidad',
+		values: [true, true, true],
+	},
+	{
+		name: 'Beneficio dental',
+		values: [true, true, true],
+	},
+	{
+		name: 'Imagenología y Examenes',
+		values: [true, true, true],
+	},
+	{
+		name: 'Edad maxima de ingreso',
+		values: ['69 años', '69 años', '69 años'],
+	},
+	{
+		name: 'Edad maxima de permanencia',
+		values: ['75 años', '75 años', '75 años'],
+	},
+	{
+		name: 'Upgrade ambulatorio',
+		values: ['80%', '100%', '100%'],
+	},
 ];

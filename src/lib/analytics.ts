@@ -39,6 +39,11 @@ export const loadGtag = (
 		(navigator as Navigator & { doNotTrack?: string }).doNotTrack === '1'
 	)
 		return;
+	if (
+		typeof navigator !== 'undefined' &&
+		(navigator as Navigator & { doNotTrack?: string }).doNotTrack === '1'
+	)
+		return;
 
 	const { nonce, anonymizeIp = true } = options || {};
 
@@ -95,3 +100,4 @@ export const trackQuoteRequest = (planType: string) =>
 		event_category: 'conversion',
 		event_label: planType,
 	});
+	

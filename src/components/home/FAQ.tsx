@@ -27,11 +27,11 @@ const FAQ = () => {
     },
     {
       question: "¿Ofrecen planes para PYME?",
-      answer: "¡Sí! Tenemos planes PYME desde 2 personas. Los seguros corporativos ofrecen mejores precios y beneficios adicionales para tus colaboradores.",
+      answer: "¡Sí! Tenemos planes PYME desde 5 personas. Los seguros corporativos ofrecen mejores precios y beneficios adicionales para tus colaboradores.",
     },
     {
       question: "¿Cuánto tiempo demora la activación del plan?",
-      answer: "Una vez aprobada tu solicitud, la activación es en 24-48 horas. En casos urgentes, podemos gestionar activaciones express el mismo día.",
+      answer: "El plan se activa el dia 1 del mes siguiente a la contratación, siempre y cuando se haya completado el proceso de firma y pago antes del último día hábil del mes en curso.",
     },
     {
       question: "¿Qué pasa si tengo una enfermedad preexistente?",
