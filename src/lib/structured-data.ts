@@ -80,6 +80,30 @@ export const organizationSchema = {
 		addressCountry: 'CL',
 	},
 	sameAs: ['https://wa.me/56928360499'],
+	// Homepage services as Service objects to improve discoverability
+	service: [
+		{
+			'@type': 'Service',
+			name: 'Seguros Individuales',
+			description:
+				'Planes Bupa diseñados para ti y tu familia. Cobertura completa con la mejor calidad.',
+			url: cdn('/seguros-individuales'),
+		},
+		{
+			'@type': 'Service',
+			name: 'Seguros PYME',
+			description:
+				'Protege a tu equipo con planes especiales para empresas. Beneficios corporativos.',
+			url: cdn('/seguros-pyme'),
+		},
+		{
+			'@type': 'Service',
+			name: 'Isapre',
+			description:
+				'Planes CruzBlanca con cobertura integral. La mejor opción en salud previsional.',
+			url: cdn('/isapre'),
+		},
+	],
 };
 
 export const localBusinessSchema = {
