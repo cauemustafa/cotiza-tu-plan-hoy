@@ -7,7 +7,7 @@ const CDN_BASE =
 const cdn = (path: string) =>
 	`${CDN_BASE}${path.startsWith('/') ? '' : '/'}${path}`;
 
-const buildImageObjects = (baseName: string) => [
+export const buildImageObjects = (baseName: string) => [
 	{
 		'@type': 'ImageObject',
 		contentUrl: cdn(`/assets/optimized/${baseName}-192.webp`),

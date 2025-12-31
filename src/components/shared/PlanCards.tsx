@@ -3,10 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Check, Phone } from "lucide-react";
 import { motion } from "framer-motion";
+import { productWithOfferSchema } from "@/lib/structured-data";
 
 interface Plan {
   name: string;
   price: string;
+  priceNumber?: number;
+  priceCurrency?: string;
   priceDetail?: string;
   description: string;
   popular?: boolean;
@@ -37,6 +40,18 @@ const PlanCards = ({ plans, onSelectPlan, variant = "individual" }: PlanCardsPro
                 : "border border-border"
             }`}
           >
+            {plan.priceNumber && (
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(productWithOfferSchema({
+                  name: plan.name,
+                  description: plan.description,
+                  category: variant === 'pyme' ? 'PYME' : 'Individual',
+                  price: plan.priceNumber,
+                  priceCurrency: plan.priceCurrency || 'CLP',
+                })) }}
+              />
+            )}
             {plan.popular && (
               <Badge 
                 className={"absolute -top-3 left-1/2 -translate-x-1/2 " + (variant === "pyme" ? "bg-primary" : "bg-accent") + " text-primary-foreground px-4"}

@@ -1,8 +1,17 @@
 // Seguros Individuales Plans - Bupa
+const parsePrice = (s?: string) => {
+	if (!s) return undefined;
+	const match = s.replace(/[^0-9.]/g, '').split('.')[0];
+	if (!match) return undefined;
+	return Number(match.replace(/\D/g, ''));
+};
+
 export const individualPlans = [
 	{
 		name: 'Bupa Multisalud',
 		price: 'Desde $55.501*',
+		priceNumber: parsePrice('Desde $55.501*'),
+		priceCurrency: 'CLP',
 		priceDetail: '(*) UF 1,40 mensual',
 		description: '¡Ahora sin deducible!',
 		popular: false,
@@ -10,6 +19,8 @@ export const individualPlans = [
 	{
 		name: 'Bupa Cuidado Total',
 		price: 'Desde $33.879*',
+		priceNumber: parsePrice('Desde $33.879*'),
+		priceCurrency: 'CLP',
 		priceDetail: '(*) UF 0,86 mensual',
 		description: '¡Ahora sin deducible!',
 		popular: true,
@@ -17,6 +28,8 @@ export const individualPlans = [
 	{
 		name: 'Bupa + Protección',
 		price: 'Desde $29.546*',
+		priceNumber: parsePrice('Desde $29.546*'),
+		priceCurrency: 'CLP',
 		priceDetail: '(*) UF 0,75 mensual',
 		description: '¡Ahora sin deducible!',
 		popular: false,
@@ -24,6 +37,8 @@ export const individualPlans = [
 	{
 		name: 'Bupa + Protección Ambulatorio 70',
 		price: 'Desde $22.507*',
+		priceNumber: parsePrice('Desde $22.507*'),
+		priceCurrency: 'CLP',
 		priceDetail: '(*) UF 0,57 mensual',
 		description: 'Amplía tu cobertura Fonasa',
 		popular: false,
@@ -74,6 +89,8 @@ export const pymePlans = [
 	{
 		name: 'PYME 50%',
 		price: '$12.411/persona',
+		priceNumber: parsePrice('$12.411/persona'),
+		priceCurrency: 'CLP',
 		priceDetail: '0,3133 UF',
 		description: '5 y 350 colaboradores',
 		popular: false,
@@ -81,6 +98,8 @@ export const pymePlans = [
 	{
 		name: 'PYME 70%',
 		price: '$23.134/persona',
+		priceNumber: parsePrice('$23.134/persona'),
+		priceCurrency: 'CLP',
 		priceDetail: '0,5060 UF',
 		description: '5 y 350 colaboradores',
 		popular: true,
@@ -88,6 +107,8 @@ export const pymePlans = [
 	{
 		name: 'PYME 80%',
 		price: '$24.271/persona',
+		priceNumber: parsePrice('$24.271/persona'),
+		priceCurrency: 'CLP',
 		priceDetail: '0,6127 UF',
 		description: 'Desde 15 colaboradores',
 		popular: false,
