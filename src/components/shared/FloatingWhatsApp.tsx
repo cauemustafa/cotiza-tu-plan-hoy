@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { MessageCircle, X } from "lucide-react";
 import { useState } from "react";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
 const FloatingWhatsApp = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,16 +10,8 @@ const FloatingWhatsApp = () => {
     const message = "¡Hola! Me gustaría obtener más información sobre los planes de seguros.";
     window.open(`https://wa.me/56928360499?text=${encodeURIComponent(message)}`, '_blank');
     
-    // Track event if analytics is available
-    if (typeof window !== 'undefined') {
-      const maybeGtag = (window as Window & { gtag?: (...args: unknown[]) => void }).gtag;
-      if (typeof maybeGtag === 'function') {
-        maybeGtag('event', 'whatsapp_click', {
-          event_category: 'engagement',
-          event_label: 'floating_button',
-        });
-      }
-    }
+    // Track event via analytics wrapper
+    trackWhatsAppClick('floating_button');
   };
 
   return (

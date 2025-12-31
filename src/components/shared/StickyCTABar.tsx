@@ -2,6 +2,7 @@ import { motion, useScroll } from "framer-motion";
 import { Phone, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
+import { trackPhoneClick, trackWhatsAppClick } from "@/lib/analytics";
 
 const StickyCTABar = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -19,27 +20,13 @@ const StickyCTABar = () => {
 
   const handlePhoneClick = () => {
     window.location.href = "tel:+56928360499";
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (window as any).gtag('event', 'phone_click', {
-        event_category: 'engagement',
-        event_label: 'sticky_cta_bar'
-      });
-    }
+    trackPhoneClick('sticky_cta_bar');
   };
 
   const handleWhatsAppClick = () => {
     const message = "¡Hola! Me gustaría obtener una cotización.";
     window.open(`https://wa.me/56928360499?text=${encodeURIComponent(message)}`, '_blank');
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (window as any).gtag('event', 'whatsapp_click', {
-        event_category: 'engagement',
-        event_label: 'sticky_cta_bar'
-      });
-    }
+    trackWhatsAppClick('sticky_cta_bar');
   };
 
   return (
