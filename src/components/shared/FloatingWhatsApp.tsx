@@ -10,11 +10,14 @@ const FloatingWhatsApp = () => {
     window.open(`https://wa.me/56928360499?text=${encodeURIComponent(message)}`, '_blank');
     
     // Track event if analytics is available
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'whatsapp_click', {
-        event_category: 'engagement',
-        event_label: 'floating_button'
-      });
+    if (typeof window !== 'undefined') {
+      const maybeGtag = (window as Window & { gtag?: (...args: unknown[]) => void }).gtag;
+      if (typeof maybeGtag === 'function') {
+        maybeGtag('event', 'whatsapp_click', {
+          event_category: 'engagement',
+          event_label: 'floating_button',
+        });
+      }
     }
   };
 

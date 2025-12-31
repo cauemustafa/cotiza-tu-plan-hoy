@@ -115,11 +115,12 @@ const Contacto = () => {
 
       setShowConfirmationDialog(true);
       // form.reset() will be called when the dialog is closed
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error submitting form:', error);
+      const message = error instanceof Error ? error.message : String(error);
       toast({
         title: "Error",
-        description: error.message || "Hubo un problema al enviar tu mensaje. Inténtalo de nuevo.",
+        description: message || "Hubo un problema al enviar tu mensaje. Inténtalo de nuevo.",
         variant: "destructive",
       });
     }
