@@ -3,6 +3,7 @@ import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Phone, Users } from "lucide-react";
 import ComparisonTable from "@/components/shared/ComparisonTable";
+import PlanCards from "@/components/shared/PlanCards";
 import PymeCalculator from "@/components/pyme/PymeCalculator";
 import { pymePlans, pymeFeatures } from "@/data/plans";
 import { toast } from "sonner";
@@ -57,6 +58,21 @@ const SegurosPyme = () => {
         {/* Content Section */}
         <section className="py-20 bg-gradient-to-br from-accent/5 to-primary/5">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+
+            {/* Plan Cards */}
+            <div className="mb-16">
+              <h2 className="text-3xl font-bold text-center mb-4">
+                Nuestros Planes Corporativos
+              </h2>
+              <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
+                Planes diseñados para empresas de todos los tamaños
+              </p>
+              <PlanCards 
+                plans={pymePlans}
+                onSelectPlan={handleSelectPlan}
+                variant="pyme"
+              />
+            </div>
 
             {/* Calculator Section */}
             <div className="mb-16">

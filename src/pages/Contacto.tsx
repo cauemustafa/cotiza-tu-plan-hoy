@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { trackFormSubmit } from "@/lib/analytics";
@@ -64,6 +65,7 @@ type ContactFormInputs = z.infer<typeof formSchema>;
 
 
 
+
 const Contacto = () => {
 
   const { toast } = useToast();
@@ -86,9 +88,9 @@ const Contacto = () => {
 
     },
 
+
   });
-
-
+  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
 
   const onSubmit = async (values: ContactFormInputs) => {
 
@@ -132,6 +134,7 @@ const Contacto = () => {
 
 
 
+
   return (
 
     <div className="min-h-screen flex flex-col">
@@ -163,15 +166,11 @@ const Contacto = () => {
           <div className="max-w-4xl mx-auto text-center text-white">
 
             <h1 className="text-4xl sm:text-5xl font-bold mb-6">
-
-              Contáctanos
-
+              Encontramos tu Plan de Isapre Ideal
             </h1>
 
             <p className="text-xl text-white/90">
-
-              Estamos aquí para ayudarte a encontrar el seguro perfecto
-
+              Cotiza planes de isapres en un solo lugar
             </p>
 
           </div>
@@ -195,145 +194,199 @@ const Contacto = () => {
                 <Card className="shadow-card">
 
                   <CardHeader>
-
-                    <CardTitle>Envíanos un Mensaje</CardTitle>
-
+                    <CardTitle>Cotiza tu Plan</CardTitle>
                     <CardDescription>
-
-                      Completa el formulario y te responderemos en menos de 24 horas
-
+                      Completa el formulario y te contactaremos con las mejores opciones
                     </CardDescription>
 
                   </CardHeader>
 
                   <CardContent>
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                      {/* Row 1: Nombre y Email */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                          <label htmlFor="nombre" className="block text-sm font-medium mb-2">
+                            Nombre <span className="text-destructive">*</span>
+                          </label>
+                          <Input
+                            id="nombre"
+                            name="nombre"
+                            value={formData.nombre}
+                            onChange={handleChange}
+                            placeholder="Ingrese su nombre y apellido"
+                            className={errors.nombre ? 'border-destructive' : ''}
+                          />
+                          {errors.nombre && <p className="text-destructive text-xs mt-1">{errors.nombre}</p>}
+                        </div>
+                        <div>
+                          <label htmlFor="email" className="block text-sm font-medium mb-2">
+                            Correo Electrónico <span className="text-destructive">*</span>
+                          </label>
+                          <Input
+                            id="email"
+                            name="email"
+                            type="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            placeholder="Ingrese su correo electrónico"
+                            className={errors.email ? 'border-destructive' : ''}
+                          />
+                          {errors.email && <p className="text-destructive text-xs mt-1">{errors.email}</p>}
+                        </div>
+                      </div>
 
-                    <Form {...form}>
+                      {/* Row 2: Teléfono y Edad */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                          <label htmlFor="telefono" className="block text-sm font-medium mb-2">
+                            Teléfono <span className="text-destructive">*</span>
+                          </label>
+                          <div className="flex">
+                            <div className="flex items-center bg-muted rounded-l-md px-3 border border-r-0 border-input">
+                              <span className="text-lg">🇨🇱</span>
+                              <span className="ml-1 text-sm text-muted-foreground">+56</span>
+                            </div>
+                            <Input
+                              id="telefono"
+                              name="telefono"
+                              value={formData.telefono}
+                              onChange={handleChange}
+                              placeholder="9 1234 5678"
+                              className={`rounded-l-none ${errors.telefono ? 'border-destructive' : ''}`}
+                            />
+                          </div>
+                          {errors.telefono && <p className="text-destructive text-xs mt-1">{errors.telefono}</p>}
+                        </div>
+                        <div>
+                          <label htmlFor="edad" className="block text-sm font-medium mb-2">
+                            Edad <span className="text-destructive">*</span>
+                          </label>
+                          <Input
+                            id="edad"
+                            name="edad"
+                            type="number"
+                            min="18"
+                            max="120"
+                            value={formData.edad}
+                            onChange={handleChange}
+                            placeholder="Ingrese su edad"
+                            className={errors.edad ? 'border-destructive' : ''}
+                          />
+                          {errors.edad && <p className="text-destructive text-xs mt-1">{errors.edad}</p>}
+                        </div>
+                      </div>
 
-                      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-
-                        <FormField
-
-                          control={form.control}
-
-                          name="fullName"
-
-                          render={({ field }) => (
-
-                            <FormItem>
-
-                              <FormLabel>Nombre Completo</FormLabel>
-
-                              <FormControl>
-
-                                <Input placeholder="Juan Pérez" {...field} />
-
-                              </FormControl>
-
-                              <FormMessage />
-
-                            </FormItem>
-
-                          )}
-
+                      {/* Row 3: RUT */}
+                      <div>
+                        <label htmlFor="rut" className="block text-sm font-medium mb-2">
+                          RUT <span className="text-destructive">*</span>
+                        </label>
+                        <Input
+                          id="rut"
+                          name="rut"
+                          value={formData.rut}
+                          onChange={handleRutChange}
+                          placeholder="12.345.678-9"
+                          className={errors.rut ? 'border-destructive' : ''}
                         />
+                        {errors.rut && <p className="text-destructive text-xs mt-1">{errors.rut}</p>}
+                      </div>
 
-                        <FormField
+                      {/* Row 4: Isapre Actual */}
+                      <div>
+                        <label className="block text-sm font-medium mb-2">
+                          Isapre Actual <span className="text-destructive">*</span>
+                        </label>
+                        <Select value={formData.isapreActual} onValueChange={(value) => handleSelectChange('isapreActual', value)}>
+                          <SelectTrigger className={errors.isapreActual ? 'border-destructive' : ''}>
+                            <SelectValue placeholder="Seleccionar Isapre actual" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-background">
+                            {ISAPRES.map((isapre) => (
+                              <SelectItem key={isapre} value={isapre}>{isapre}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        {errors.isapreActual && <p className="text-destructive text-xs mt-1">{errors.isapreActual}</p>}
+                      </div>
 
-                          control={form.control}
+                      {/* Row 5: Rango de sueldo y Cantidad de Cargas */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium mb-2">
+                            Rango de sueldo <span className="text-destructive">*</span>
+                          </label>
+                          <Select value={formData.rangoSueldo} onValueChange={(value) => handleSelectChange('rangoSueldo', value)}>
+                            <SelectTrigger className={errors.rangoSueldo ? 'border-destructive' : ''}>
+                              <SelectValue placeholder="Rango de Sueldo" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-background">
+                              {RANGOS_SUELDO.map((rango) => (
+                                <SelectItem key={rango} value={rango}>{rango}</SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          {errors.rangoSueldo && <p className="text-destructive text-xs mt-1">{errors.rangoSueldo}</p>}
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium mb-2">
+                            Cantidad de Cargas <span className="text-destructive">*</span>
+                          </label>
+                          <Select value={formData.cantidadCargas} onValueChange={(value) => handleSelectChange('cantidadCargas', value)}>
+                            <SelectTrigger className={errors.cantidadCargas ? 'border-destructive' : ''}>
+                              <SelectValue placeholder="Cantidad de Cargas" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-background">
+                              {CANTIDAD_CARGAS.map((cantidad) => (
+                                <SelectItem key={cantidad} value={cantidad}>{cantidad}</SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          {errors.cantidadCargas && <p className="text-destructive text-xs mt-1">{errors.cantidadCargas}</p>}
+                        </div>
+                      </div>
 
-                          name="email"
+                      {/* Row 6: Región */}
+                      <div>
+                        <label className="block text-sm font-medium mb-2">
+                          Región <span className="text-destructive">*</span>
+                        </label>
+                        <Select value={formData.region} onValueChange={(value) => handleSelectChange('region', value)}>
+                          <SelectTrigger className={errors.region ? 'border-destructive' : ''}>
+                            <SelectValue placeholder="Seleccione su Región" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-background">
+                            {REGIONES.map((region) => (
+                              <SelectItem key={region} value={region}>{region}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        {errors.region && <p className="text-destructive text-xs mt-1">{errors.region}</p>}
+                      </div>
 
-                          render={({ field }) => (
-
-                            <FormItem>
-
-                              <FormLabel>Email</FormLabel>
-
-                              <FormControl>
-
-                                <Input placeholder="juan@ejemplo.com" {...field} />
-
-                              </FormControl>
-
-                              <FormMessage />
-
-                            </FormItem>
-
-                          )}
-
+                      {/* Row 7: Mensaje */}
+                      <div>
+                        <label htmlFor="mensaje" className="block text-sm font-medium mb-2">
+                          Mensaje
+                        </label>
+                        <Textarea
+                          id="mensaje"
+                          name="mensaje"
+                          value={formData.mensaje}
+                          onChange={handleChange}
+                          placeholder="Opcionalmente podrás indicarnos el valor de tu plan actual, edad de tus cargas, clínicas o isapres de preferencia, si cuentas con algún seguro complementario, etc."
+                          rows={4}
+                          className={errors.mensaje ? 'border-destructive' : ''}
                         />
+                        {errors.mensaje && <p className="text-destructive text-xs mt-1">{errors.mensaje}</p>}
+                      </div>
 
-                        <FormField
-
-                          control={form.control}
-
-                          name="phone"
-
-                          render={({ field }) => (
-
-                            <FormItem>
-
-                              <FormLabel>Teléfono</FormLabel>
-
-                              <FormControl>
-
-                                <Input placeholder="+56 9 1234 5678" {...field} />
-
-                              </FormControl>
-
-                              <FormMessage />
-
-                            </FormItem>
-
-                          )}
-
-                        />
-
-                        <FormField
-
-                          control={form.control}
-
-                          name="message"
-
-                          render={({ field }) => (
-
-                            <FormItem>
-
-                              <FormLabel>Mensaje</FormLabel>
-
-                              <FormControl>
-
-                                <Textarea
-
-                                  placeholder="Cuéntanos qué tipo de seguro necesitas..."
-
-                                  rows={5}
-
-                                  {...field}
-
-                                />
-
-                              </FormControl>
-
-                              <FormMessage />
-
-                            </FormItem>
-
-                          )}
-
-                        />
-
-                        <Button type="submit" className="w-full gradient-primary">
-
-                          Enviar Mensaje
-
-                        </Button>
-
-                      </form>
-
-                    </Form>
-
+                      {/* Submit Button */}
+                      <Button type="submit" className="w-full gradient-primary">
+                        Cotizar Ahora
+                      </Button>
+                    </form>
                   </CardContent>
 
                 </Card>

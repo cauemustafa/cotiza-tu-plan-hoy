@@ -3,6 +3,7 @@ import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Phone } from "lucide-react";
 import ComparisonTable from "@/components/shared/ComparisonTable";
+import PlanCards from "@/components/shared/PlanCards";
 import { individualPlans, individualFeatures } from "@/data/plans";
 import { toast } from "sonner";
 import heroImage from "@/assets/seguros-individuales-hero.jpg";
@@ -54,11 +55,27 @@ const SegurosIndividuales = () => {
         <section className="py-20 bg-gradient-to-br from-primary/5 to-accent/5">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
 
+            {/* Plan Cards */}
+            <div className="mb-16">
+              <h2 className="text-3xl font-bold text-center mb-4">
+                Nuestros Planes
+              </h2>
+              <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
+                Elige el plan que mejor se adapte a tus necesidades de salud
+              </p>
+              <PlanCards 
+                plans={individualPlans}
+                onSelectPlan={handleSelectPlan}
+                variant="individual"
+              />
+            </div>
+
             {/* Comparison Table */}
             <div className="mb-16">
-              <h2 className="text-3xl font-bold text-center mb-8">
+              <h2 className="text-3xl font-bold text-center mb-4">
                 Compara Nuestros Planes
               </h2>
+              <p className="text-sm text-muted-foreground text-center mb-8">*Sin deducible en Red de prestadores Bupa</p>
               <ComparisonTable 
                 plans={individualPlans}
                 features={individualFeatures}

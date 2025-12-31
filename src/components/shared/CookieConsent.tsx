@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Cookie } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { loadGtag, setConsent, pageview } from "@/lib/analytics";
 
 const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -16,16 +17,31 @@ const CookieConsent = () => {
       }, 1000);
       return () => clearTimeout(timer);
     }
+
+    // Respect previously saved consent
+    if (consent === "accepted") {
+      // initialize analytics if consent was previously given
+      loadGtag();
+      setConsent(true);
+    } else if (consent === "declined") {
+      setConsent(false);
+    }
   }, []);
 
   const handleAccept = () => {
     localStorage.setItem("cookieConsent", "accepted");
     setIsVisible(false);
+    // load analytics and mark consent
+    loadGtag();
+    setConsent(true);
+    // send initial pageview
+    if (typeof window !== 'undefined') pageview(window.location.pathname);
   };
 
   const handleDecline = () => {
     localStorage.setItem("cookieConsent", "declined");
     setIsVisible(false);
+    setConsent(false);
   };
 
   return (
