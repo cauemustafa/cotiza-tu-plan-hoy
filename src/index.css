@@ -7,123 +7,199 @@ All colors MUST be HSL.
 */
 
 @layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 210 100% 15%;
+	:root {
+		--background: 0 0% 100%;
+		--foreground: 210 100% 15%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 210 100% 15%;
+		--card: 0 0% 100%;
+		--card-foreground: 210 100% 15%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 210 100% 15%;
+		--popover: 0 0% 100%;
+		--popover-foreground: 210 100% 15%;
 
-    /* Bupa Blue as primary */
-    --primary: 210 100% 40%;
-    --primary-foreground: 0 0% 100%;
-    --primary-light: 210 100% 50%;
-    --primary-dark: 210 100% 30%;
+		/* Bupa Blue as primary */
+		--primary: 210 100% 40%;
+		--primary-foreground: 0 0% 100%;
+		--primary-light: 210 100% 50%;
+		--primary-dark: 210 100% 30%;
 
-    /* Magenta as accent */
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 210 100% 15%;
+		/* Magenta as accent */
+		--secondary: 210 40% 96%;
+		--secondary-foreground: 210 100% 15%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 210 20% 45%;
+		--muted: 210 40% 96%;
+		--muted-foreground: 210 20% 45%;
 
-    --accent: 345 80% 51%;
-    --accent-foreground: 0 0% 100%;
-    --accent-light: 345 80% 60%;
+		--accent: 345 80% 51%;
+		--accent-foreground: 0 0% 100%;
+		--accent-light: 345 80% 60%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
+		--destructive: 0 84% 60%;
+		--destructive-foreground: 0 0% 100%;
 
-    --border: 210 30% 90%;
-    --input: 210 30% 90%;
-    --ring: 210 100% 40%;
+		--border: 210 30% 90%;
+		--input: 210 30% 90%;
+		--ring: 210 100% 40%;
 
-    --radius: 0.75rem;
+		--radius: 0.75rem;
 
-    /* Gradient definitions */
-    --gradient-primary: linear-gradient(135deg, hsl(210 100% 40%), hsl(210 100% 50%));
-    --gradient-accent: linear-gradient(135deg, hsl(345 80% 51%), hsl(345 80% 60%));
-    --gradient-hero: linear-gradient(135deg, hsl(210 100% 40%) 0%, hsl(345 80% 51%) 100%);
+		/* Gradient definitions */
+		--gradient-primary: linear-gradient(
+			135deg,
+			hsl(210 100% 40%),
+			hsl(210 100% 50%)
+		);
+		--gradient-accent: linear-gradient(
+			135deg,
+			hsl(345 80% 51%),
+			hsl(345 80% 60%)
+		);
+		--gradient-hero: linear-gradient(
+			135deg,
+			hsl(210 100% 40%) 0%,
+			hsl(345 80% 51%) 100%
+		);
 
-    /* Shadows */
-    --shadow-elegant: 0 10px 40px -10px hsl(210 100% 40% / 0.2);
-    --shadow-card: 0 4px 20px hsl(210 100% 40% / 0.1);
+		/* Shadows */
+		--shadow-elegant: 0 10px 40px -10px hsl(210 100% 40% / 0.2);
+		--shadow-card: 0 4px 20px hsl(210 100% 40% / 0.1);
 
-    /* Transitions */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
+		/* Transitions */
+		--transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	}
 
-  .dark {
-    --background: 210 100% 8%;
-    --foreground: 0 0% 98%;
+	.dark {
+		--background: 210 100% 8%;
+		--foreground: 0 0% 98%;
 
-    --card: 210 100% 12%;
-    --card-foreground: 0 0% 98%;
+		--card: 210 100% 12%;
+		--card-foreground: 0 0% 98%;
 
-    --popover: 210 100% 12%;
-    --popover-foreground: 0 0% 98%;
+		--popover: 210 100% 12%;
+		--popover-foreground: 0 0% 98%;
 
-    --primary: 210 100% 50%;
-    --primary-foreground: 0 0% 100%;
+		--primary: 210 100% 50%;
+		--primary-foreground: 0 0% 100%;
 
-    --secondary: 210 50% 20%;
-    --secondary-foreground: 0 0% 98%;
+		--secondary: 210 50% 20%;
+		--secondary-foreground: 0 0% 98%;
 
-    --muted: 210 50% 20%;
-    --muted-foreground: 210 20% 70%;
+		--muted: 210 50% 20%;
+		--muted-foreground: 210 20% 70%;
 
-    --accent: 345 80% 55%;
-    --accent-foreground: 0 0% 100%;
+		--accent: 345 80% 55%;
+		--accent-foreground: 0 0% 100%;
 
-    --destructive: 0 62% 50%;
-    --destructive-foreground: 0 0% 100%;
+		--destructive: 0 62% 50%;
+		--destructive-foreground: 0 0% 100%;
 
-    --border: 210 50% 25%;
-    --input: 210 50% 25%;
-    --ring: 210 100% 50%;
-  }
+		--border: 210 50% 25%;
+		--input: 210 50% 25%;
+		--ring: 210 100% 50%;
+	}
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
+	* {
+		@apply border-border;
+	}
 
-  body {
-    @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  }
+	body {
+		@apply bg-background text-foreground font-sans antialiased;
+		font-family: 'Inter', system-ui, -apple-system, sans-serif;
+	}
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-bold tracking-tight;
-  }
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@apply font-bold tracking-tight;
+	}
 }
 
 @layer utilities {
-  .gradient-primary {
-    background: var(--gradient-primary);
-  }
-  
-  .gradient-accent {
-    background: var(--gradient-accent);
-  }
+	.gradient-primary {
+		background: var(--gradient-primary);
+	}
 
-  .gradient-hero {
-    background: var(--gradient-hero);
-  }
+	.gradient-accent {
+		background: var(--gradient-accent);
+	}
 
-  .shadow-elegant {
-    box-shadow: var(--shadow-elegant);
-  }
+	.gradient-hero {
+		background: var(--gradient-hero);
+	}
 
-  .shadow-card {
-    box-shadow: var(--shadow-card);
-  }
+	.shadow-elegant {
+		box-shadow: var(--shadow-elegant);
+	}
 
-  .transition-smooth {
-    transition: var(--transition-smooth);
-  }
+	.shadow-card {
+		box-shadow: var(--shadow-card);
+	}
+
+	.transition-smooth {
+		transition: var(--transition-smooth);
+	}
+
+	/* Continuous marquee for partner logos */
+	.marquee {
+		overflow: hidden;
+		width: 100%;
+	}
+
+	.marquee__track {
+		display: flex;
+		gap: 0;
+		align-items: center;
+		/* Ensure the duplicated content sits inline and is exactly double width for a seamless loop */
+		width: calc(200%);
+		flex-wrap: nowrap;
+		animation: marquee var(--marquee-duration, 18s) linear infinite;
+		will-change: transform;
+		transform: translateX(0);
+	}
+
+	/* Respect users who prefer reduced motion */
+	@media (prefers-reduced-motion: reduce) {
+		.marquee__track {
+			animation: none;
+		}
+	}
+
+	.marquee__item {
+		flex: 0 0 auto;
+		padding: 0; /* zero horizontal breathing space */
+	}
+
+	.marquee__figure {
+		width: 10rem;
+		height: 4.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #fff;
+		padding: 0.4rem;
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+	}
+
+	.marquee__logo {
+		max-width: 100%;
+		max-height: 100%;
+		width: auto;
+		height: auto;
+		object-fit: contain;
+		display: block;
+	}
+
+	@keyframes marquee {
+		0% {
+			transform: translateX(0);
+		}
+		100% {
+			transform: translateX(-50%);
+		}
+	}
 }

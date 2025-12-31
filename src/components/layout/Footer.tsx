@@ -35,37 +35,24 @@ const Footer = () => {
         {/* Partner Logos Carousel */}
         <div className="mb-8 pb-8 border-b border-primary-foreground/20">
           <p className="text-center font-semibold mb-6 text-primary-foreground/90" role="heading" aria-level={2}>Clínicas y Centros Médicos</p>
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            plugins={[
-              Autoplay({
-                delay: 2500,
-                stopOnInteraction: false,
-              }),
-            ]}
-            className="w-full max-w-5xl mx-auto"
-          >
-            <CarouselContent className="-ml-2 md:-ml-4">
-              {partners.map((partner, index) => (
-                <CarouselItem key={index} className="pl-2 md:pl-4 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5">
-                  <div className="bg-white rounded-lg p-4 shadow-lg hover:scale-105 transition-transform h-20 flex items-center justify-center">
-                    <img 
-                      src={partner.logo} 
-                      alt={partner.name} 
-                      className="h-12 w-auto max-w-full object-contain"
-                      width={48}
-                      height={48}
+          {/* Continuous marquee-style partner band */}
+          <div className="marquee w-full max-w-5xl mx-auto">
+            <div className="marquee__track" style={{ '--marquee-duration': '20s' } as React.CSSProperties}>
+              {[...partners, ...partners].map((partner, index) => (
+                <div key={index} className="marquee__item">
+                  <div className="marquee__figure">
+                    <img
+                      src={partner.logo}
+                      alt={partner.name}
+                      className="marquee__logo"
                       loading="lazy"
                       decoding="async"
                     />
                   </div>
-                </CarouselItem>
+                </div>
               ))}
-            </CarouselContent>
-          </Carousel>
+            </div>
+          </div>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
