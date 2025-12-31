@@ -1,42 +1,27 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { loadGtag, pageview } from '@/lib/analytics';
 
-// Replace with your actual GA4 Measurement ID
-const GA_MEASUREMENT_ID = 'G-XXXXXXXXXX';
-
-const GoogleAnalytics = () => {
+/**
+ * Env-driven Google Analytics component
+ * - Loads GA only when `VITE_GTAG_ID` is set and in production (see `src/lib/analytics.ts`).
+ * - Respects Do Not Track and avoids double-loading.
+ * - Calls `pageview` on route changes.
+ */
+const GoogleAnalytics = ({ nonce }: { nonce?: string } = {}) => {
   const location = useLocation();
 
+  // Load gtag script once on mount (no-op if not configured or not in prod)
   useEffect(() => {
-    // Track page views on route change
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('config', GA_MEASUREMENT_ID, {
-        page_path: location.pathname + location.search,
-      });
-    }
+    loadGtag(undefined, { nonce });
+  }, [nonce]);
+
+  // Track pageviews on route changes
+  useEffect(() => {
+    pageview(location.pathname + location.search);
   }, [location]);
 
-  return (
-    <>
-      {/* Google Analytics */}
-      <script
-        async
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-      />
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_MEASUREMENT_ID}', {
-              page_path: window.location.pathname,
-            });
-          `,
-        }}
-      />
-    </>
-  );
+  return null;
 };
 
 export default GoogleAnalytics;
