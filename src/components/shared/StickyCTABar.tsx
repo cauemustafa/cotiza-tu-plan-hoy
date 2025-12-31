@@ -2,7 +2,6 @@ import { motion, useScroll } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
-import { trackWhatsAppClick } from "@/lib/analytics";
 
 const StickyCTABar = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -35,7 +34,14 @@ const StickyCTABar = () => {
   const handleWhatsAppClick = () => {
     const message = "¡Hola! Me gustaría obtener una cotización.";
     window.open(`https://wa.me/56928360499?text=${encodeURIComponent(message)}`, '_blank');
-    trackWhatsAppClick('sticky_cta_bar');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).gtag('event', 'whatsapp_click', {
+        event_category: 'engagement',
+        event_label: 'sticky_cta_bar'
+      });
+    }
   };
 
   return (

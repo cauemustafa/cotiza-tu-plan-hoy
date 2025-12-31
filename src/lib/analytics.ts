@@ -16,10 +16,10 @@ declare global {
 }
 
 const GA_ID = (import.meta.env.VITE_GTAG_ID as string | undefined) || undefined;
-let _Loaded = false;
+let _loaded = false;
 
 /** Returns whether gtag has been loaded */
-export const isGtagLoaded = () => _Loaded;
+export const isGtagLoaded = () => _loaded;
 
 /**
  * Load Google Analytics (gtag.js) safely.
@@ -32,13 +32,8 @@ export const loadGtag = (
 	id = GA_ID,
 	options?: { nonce?: string; anonymizeIp?: boolean }
 ) => {
-	if (!id || typeof window === 'undefined' || _Loaded) return;
+	if (!id || typeof window === 'undefined' || _loaded) return;
 	if (!import.meta.env.PROD) return;
-	if (
-		typeof navigator !== 'undefined' &&
-		(navigator as Navigator & { doNotTrack?: string }).doNotTrack === '1'
-	)
-		return;
 	if (
 		typeof navigator !== 'undefined' &&
 		(navigator as Navigator & { doNotTrack?: string }).doNotTrack === '1'
@@ -62,7 +57,7 @@ export const loadGtag = (
 
 	// standard opt-out var recommended by Google
 	window[`ga-disable-${id}`] = false;
-	_Loaded = true;
+	_loaded = true;
 };
 
 /** Disable or enable tracking (opt-out) */
@@ -100,4 +95,3 @@ export const trackQuoteRequest = (planType: string) =>
 		event_category: 'conversion',
 		event_label: planType,
 	});
-	

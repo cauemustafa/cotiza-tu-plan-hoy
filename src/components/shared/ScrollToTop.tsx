@@ -86,7 +86,7 @@ const ScrollToTop = () => {
           <Button
             onClick={scrollToTop}
             size="icon"
-            className="rounded-full shadow-lg h-12 w-12 bg-primary"
+            className="rounded-full shadow-lg h-12 w-12"
             aria-label="Volver arriba"
           >
             <ArrowUp className="h-5 w-5" />
