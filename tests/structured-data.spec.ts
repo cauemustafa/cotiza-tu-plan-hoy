@@ -1,5 +1,45 @@
 import { test, expect } from '@playwright/test';
 
+// Type definitions for JSON-LD structures to avoid 'any'
+interface JsonLdObject {
+	'@type'?: string;
+	[key: string]: unknown; // Allow for arbitrary properties
+}
+
+interface SearchActionSchema {
+	'@type': 'SearchAction';
+	target: string;
+	[key: string]: unknown;
+}
+
+interface WebSiteSchema extends JsonLdObject {
+	'@type': 'WebSite';
+	potentialAction?: SearchActionSchema;
+}
+
+interface OfferSchema {
+	price?: number;
+	priceCurrency?: string;
+	[key: string]: unknown;
+}
+
+interface ProductSchema extends JsonLdObject {
+	'@type': 'Product';
+	offers?: OfferSchema | OfferSchema[];
+	[key: string]: unknown;
+}
+
+// Type guards for JSON-LD schemas
+const isProductSchema = (o: unknown): o is ProductSchema =>
+	typeof o === 'object' &&
+	o !== null &&
+	(o as JsonLdObject)['@type'] === 'Product';
+
+const isWebSiteSchema = (o: unknown): o is WebSiteSchema =>
+	typeof o === 'object' &&
+	o !== null &&
+	(o as JsonLdObject)['@type'] === 'WebSite';
+
 const routes = ['/', '/isapre', '/seguros-individuales', '/seguros-pyme'];
 
 const expectations: Record<
@@ -60,8 +100,7 @@ for (const route of routes) {
 		// Basic: at least one Product (optional per-route)
 		if (expectations[route].requireProduct !== false) {
 			const hasProduct = parsed.some(
-				(o) =>
-					isProduct(o) && (o as Record<string, unknown>)['@type'] === 'Product'
+				(o) => isProduct(o) && (o as JsonLdObject)['@type'] === 'Product'
 			);
 			expect(hasProduct).toBeTruthy();
 		}
@@ -69,18 +108,20 @@ for (const route of routes) {
 		// If required for the route, assert there is an Offer with numeric price and CLP currency
 		if (expectations[route].requireOfferWithPrice) {
 			const hasOfferWithPrice = parsed.some((o) => {
-				if (!(isProduct(o) && (o as any)?.['@type'] === 'Product')) return false;
+				if (!isProductSchema(o)) return false; // Use the new type guard
 
-				const offers = (o as any)?.offers;
+				const offers = o.offers;
 				if (!offers) return false;
 
 				const offerArray = Array.isArray(offers) ? offers : [offers];
 
-				return offerArray.some((offer: any) => {
+				return offerArray.some((offer) => {
+					// Ensure offer is treated as OfferSchema
+					const typedOffer = offer as OfferSchema;
 					return (
-						typeof offer?.price === 'number' &&
-						offer.price > 0 &&
-						offer?.priceCurrency === 'CLP'
+						typeof typedOffer?.price === 'number' &&
+						typedOffer.price > 0 &&
+						typedOffer?.priceCurrency === 'CLP'
 					);
 				});
 			});
@@ -90,9 +131,9 @@ for (const route of routes) {
 		// If required for the route, assert there is a WebSite with SearchAction
 		if (expectations[route].requireSearchAction) {
 			const hasSearchAction = parsed.some((o) => {
-				const potentialAction = (o as any)?.potentialAction;
+				if (!isWebSiteSchema(o)) return false; // Use the new type guard
+				const potentialAction = o.potentialAction;
 				return (
-					(o as any)?.['@type'] === 'WebSite' &&
 					potentialAction?.['@type'] === 'SearchAction' &&
 					typeof potentialAction?.target === 'string'
 				);
