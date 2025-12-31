@@ -45,7 +45,7 @@ export const individualFeatures = [
 	},
 	{
 		name: 'Extensión cobertura catastrófica',
-		values: [true, true, true, false],
+		values: [true, false, true, false],
 	},
 	{
 		name: 'Beneficio dental',
@@ -113,7 +113,7 @@ export const pymeFeatures = [
 	},
 	{
 		name: 'Beneficio dental',
-		values: ['Básico', 'Básico', 'Completo'],
+		values: [true, true, true],
 	},
 	{
 		name: 'Imagenología y Examenes',
