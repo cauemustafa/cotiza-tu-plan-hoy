@@ -93,15 +93,11 @@ for (const route of routes) {
 		// If required for the route, assert there is a WebSite with SearchAction
 		if (expectations[route].requireSearchAction) {
 			const hasSearchAction = parsed.some((o) => {
-				if (typeof o !== 'object' || o === null) return false;
-				const ro = o as Record<string, unknown>;
-				if (ro['@type'] !== 'WebSite') return false;
-				const pa = ro['potentialAction'];
-				if (!pa || typeof pa !== 'object') return false;
-				const paObj = pa as Record<string, unknown>;
+				const potentialAction = (o as any)?.potentialAction;
 				return (
-					paObj['@type'] === 'SearchAction' &&
-					typeof paObj['target'] === 'string'
+					(o as any)?.['@type'] === 'WebSite' &&
+					potentialAction?.['@type'] === 'SearchAction' &&
+					typeof potentialAction?.target === 'string'
 				);
 			});
 			expect(hasSearchAction).toBeTruthy();
