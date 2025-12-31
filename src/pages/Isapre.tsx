@@ -10,6 +10,7 @@ import heroImage from "@/assets/isapre-hero.jpg";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { trackFormSubmit, trackWhatsAppClick } from "@/lib/analytics";
+import { productWithOfferSchema, buildImageObjects } from "@/lib/structured-data";
 import { z } from "zod";
 
 // RUT validation and form schema (copied from Contacto)
@@ -179,10 +180,21 @@ const Isapre = () => {
     }
   };
 
+  const isapreProduct = productWithOfferSchema({
+    name: 'Cotiza tu Plan de Isapre',
+    description: 'Formulario para cotizar planes de Isapre y enviar solicitudes por WhatsApp',
+    category: 'Isapre',
+  });
+  isapreProduct.image = buildImageObjects('logo');
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(isapreProduct) }}
+        />
         {/* Hero Section with Image */}
         <section className="relative h-[400px] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0">

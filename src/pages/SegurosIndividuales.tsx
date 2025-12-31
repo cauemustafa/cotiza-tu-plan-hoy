@@ -7,6 +7,7 @@ import PlanCards from "@/components/shared/PlanCards";
 import { individualPlans, individualFeatures } from "@/data/plans";
 import { toast } from "sonner";
 import heroImage from "@/assets/seguros-individuales-hero.jpg";
+import { productWithOfferSchema, buildImageObjects } from "@/lib/structured-data";
 
 const SegurosIndividuales = () => {
   const handleSelectPlan = (planIndex: number) => {
@@ -19,10 +20,30 @@ const SegurosIndividuales = () => {
     }, 1500);
   };
 
+  const offerSchemas = individualPlans
+    .filter((p) => p.priceNumber)
+    .map((p) => {
+      const schema = productWithOfferSchema({
+        name: p.name,
+        description: p.description,
+        category: 'Individual',
+        price: p.priceNumber,
+        priceCurrency: p.priceCurrency,
+      });
+      schema.image = buildImageObjects('logo');
+      return schema;
+    });
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
+        {offerSchemas.length > 0 && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(offerSchemas) }}
+          />
+        )}
         {/* Hero Section with Image */}
         <section className="relative h-[400px] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0">
