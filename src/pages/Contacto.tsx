@@ -7,13 +7,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { trackFormSubmit } from "@/lib/analytics";
+import { trackFormSubmit, trackWhatsAppClick } from "@/lib/analytics";
 import heroImage from "@/assets/contacto-hero.jpg";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useState } from "react";
-import { ConfirmationDialog } from "@/components/shared/ConfirmationDialog";
 import {
   Form,
   FormControl,
@@ -70,8 +69,6 @@ const Contacto = () => {
 
   const { toast } = useToast();
 
-  const [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
-
   const form = useForm<ContactFormInputs>({
 
     resolver: zodResolver(formSchema),
@@ -88,43 +85,25 @@ const Contacto = () => {
 
     },
 
-
   });
-  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
 
-  const onSubmit = async (values: ContactFormInputs) => {
+  const { register, handleSubmit, reset, formState: { errors } } = form;
 
+  const onSubmit = (values: ContactFormInputs) => {
     trackFormSubmit('contact_form');
 
+    const message = `Nueva solicitud de cotización\nNombre: ${values.fullName}\nEmail: ${values.email}\nTeléfono: ${values.phone}\nMensaje: ${values.message ?? ''}`;
+    const waUrl = `https://wa.me/56928360499?text=${encodeURIComponent(message)}`;
 
+    window.open(waUrl, '_blank');
+    trackWhatsAppClick('contact_page');
 
-    // ORIGINAL CODE: Uncomment for actual API integration
-    try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
-      });
+    toast({
+      title: 'Abriendo WhatsApp',
+      description: 'Se abrirá una conversación en WhatsApp para completar tu solicitud.',
+    });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Error al enviar el mensaje.');
-      }
-
-      setShowConfirmationDialog(true);
-      // form.reset() will be called when the dialog is closed
-    } catch (error: unknown) {
-      console.error('Error submitting form:', error);
-      const message = error instanceof Error ? error.message : String(error);
-      toast({
-        title: "Error",
-        description: message || "Hubo un problema al enviar tu mensaje. Inténtalo de nuevo.",
-        variant: "destructive",
-      });
-    }
-
+    reset();
   };
 
 
@@ -203,22 +182,20 @@ const Contacto = () => {
                   </CardHeader>
 
                   <CardContent>
-                    <form onSubmit={handleSubmit} className="space-y-4">
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                       {/* Row 1: Nombre y Email */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                          <label htmlFor="nombre" className="block text-sm font-medium mb-2">
+                          <label htmlFor="fullName" className="block text-sm font-medium mb-2">
                             Nombre <span className="text-destructive">*</span>
                           </label>
                           <Input
-                            id="nombre"
-                            name="nombre"
-                            value={formData.nombre}
-                            onChange={handleChange}
+                            id="fullName"
+                            {...register('fullName')}
                             placeholder="Ingrese su nombre y apellido"
-                            className={errors.nombre ? 'border-destructive' : ''}
+                            className={errors.fullName ? 'border-destructive' : ''}
                           />
-                          {errors.nombre && <p className="text-destructive text-xs mt-1">{errors.nombre}</p>}
+                          {errors.fullName && <p className="text-destructive text-xs mt-1">{String(errors.fullName.message)}</p>}
                         </div>
                         <div>
                           <label htmlFor="email" className="block text-sm font-medium mb-2">
@@ -226,161 +203,47 @@ const Contacto = () => {
                           </label>
                           <Input
                             id="email"
-                            name="email"
                             type="email"
-                            value={formData.email}
-                            onChange={handleChange}
+                            {...register('email')}
                             placeholder="Ingrese su correo electrónico"
                             className={errors.email ? 'border-destructive' : ''}
                           />
-                          {errors.email && <p className="text-destructive text-xs mt-1">{errors.email}</p>}
+                          {errors.email && <p className="text-destructive text-xs mt-1">{String(errors.email.message)}</p>}
                         </div>
                       </div>
 
-                      {/* Row 2: Teléfono y Edad */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <label htmlFor="telefono" className="block text-sm font-medium mb-2">
-                            Teléfono <span className="text-destructive">*</span>
-                          </label>
-                          <div className="flex">
-                            <div className="flex items-center bg-muted rounded-l-md px-3 border border-r-0 border-input">
-                              <span className="text-lg">🇨🇱</span>
-                              <span className="ml-1 text-sm text-muted-foreground">+56</span>
-                            </div>
-                            <Input
-                              id="telefono"
-                              name="telefono"
-                              value={formData.telefono}
-                              onChange={handleChange}
-                              placeholder="9 1234 5678"
-                              className={`rounded-l-none ${errors.telefono ? 'border-destructive' : ''}`}
-                            />
+                      {/* Row 2: Teléfono */}
+                      <div>
+                        <label htmlFor="phone" className="block text-sm font-medium mb-2">
+                          Teléfono <span className="text-destructive">*</span>
+                        </label>
+                        <div className="flex">
+                          <div className="flex items-center bg-muted rounded-l-md px-3 border border-r-0 border-input">
+                            <span className="text-lg">🇨🇱</span>
+                            <span className="ml-1 text-sm text-muted-foreground">+56</span>
                           </div>
-                          {errors.telefono && <p className="text-destructive text-xs mt-1">{errors.telefono}</p>}
-                        </div>
-                        <div>
-                          <label htmlFor="edad" className="block text-sm font-medium mb-2">
-                            Edad <span className="text-destructive">*</span>
-                          </label>
                           <Input
-                            id="edad"
-                            name="edad"
-                            type="number"
-                            min="18"
-                            max="120"
-                            value={formData.edad}
-                            onChange={handleChange}
-                            placeholder="Ingrese su edad"
-                            className={errors.edad ? 'border-destructive' : ''}
+                            id="phone"
+                            {...register('phone')}
+                            placeholder="9 1234 5678"
+                            className="rounded-l-none"
                           />
-                          {errors.edad && <p className="text-destructive text-xs mt-1">{errors.edad}</p>}
                         </div>
+                        {errors.phone && <p className="text-destructive text-xs mt-1">{String(errors.phone.message)}</p>}
                       </div>
 
-                      {/* Row 3: RUT */}
+                      {/* Mensaje */}
                       <div>
-                        <label htmlFor="rut" className="block text-sm font-medium mb-2">
-                          RUT <span className="text-destructive">*</span>
-                        </label>
-                        <Input
-                          id="rut"
-                          name="rut"
-                          value={formData.rut}
-                          onChange={handleRutChange}
-                          placeholder="12.345.678-9"
-                          className={errors.rut ? 'border-destructive' : ''}
-                        />
-                        {errors.rut && <p className="text-destructive text-xs mt-1">{errors.rut}</p>}
-                      </div>
-
-                      {/* Row 4: Isapre Actual */}
-                      <div>
-                        <label className="block text-sm font-medium mb-2">
-                          Isapre Actual <span className="text-destructive">*</span>
-                        </label>
-                        <Select value={formData.isapreActual} onValueChange={(value) => handleSelectChange('isapreActual', value)}>
-                          <SelectTrigger className={errors.isapreActual ? 'border-destructive' : ''}>
-                            <SelectValue placeholder="Seleccionar Isapre actual" />
-                          </SelectTrigger>
-                          <SelectContent className="bg-background">
-                            {ISAPRES.map((isapre) => (
-                              <SelectItem key={isapre} value={isapre}>{isapre}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        {errors.isapreActual && <p className="text-destructive text-xs mt-1">{errors.isapreActual}</p>}
-                      </div>
-
-                      {/* Row 5: Rango de sueldo y Cantidad de Cargas */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-sm font-medium mb-2">
-                            Rango de sueldo <span className="text-destructive">*</span>
-                          </label>
-                          <Select value={formData.rangoSueldo} onValueChange={(value) => handleSelectChange('rangoSueldo', value)}>
-                            <SelectTrigger className={errors.rangoSueldo ? 'border-destructive' : ''}>
-                              <SelectValue placeholder="Rango de Sueldo" />
-                            </SelectTrigger>
-                            <SelectContent className="bg-background">
-                              {RANGOS_SUELDO.map((rango) => (
-                                <SelectItem key={rango} value={rango}>{rango}</SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                          {errors.rangoSueldo && <p className="text-destructive text-xs mt-1">{errors.rangoSueldo}</p>}
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium mb-2">
-                            Cantidad de Cargas <span className="text-destructive">*</span>
-                          </label>
-                          <Select value={formData.cantidadCargas} onValueChange={(value) => handleSelectChange('cantidadCargas', value)}>
-                            <SelectTrigger className={errors.cantidadCargas ? 'border-destructive' : ''}>
-                              <SelectValue placeholder="Cantidad de Cargas" />
-                            </SelectTrigger>
-                            <SelectContent className="bg-background">
-                              {CANTIDAD_CARGAS.map((cantidad) => (
-                                <SelectItem key={cantidad} value={cantidad}>{cantidad}</SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                          {errors.cantidadCargas && <p className="text-destructive text-xs mt-1">{errors.cantidadCargas}</p>}
-                        </div>
-                      </div>
-
-                      {/* Row 6: Región */}
-                      <div>
-                        <label className="block text-sm font-medium mb-2">
-                          Región <span className="text-destructive">*</span>
-                        </label>
-                        <Select value={formData.region} onValueChange={(value) => handleSelectChange('region', value)}>
-                          <SelectTrigger className={errors.region ? 'border-destructive' : ''}>
-                            <SelectValue placeholder="Seleccione su Región" />
-                          </SelectTrigger>
-                          <SelectContent className="bg-background">
-                            {REGIONES.map((region) => (
-                              <SelectItem key={region} value={region}>{region}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        {errors.region && <p className="text-destructive text-xs mt-1">{errors.region}</p>}
-                      </div>
-
-                      {/* Row 7: Mensaje */}
-                      <div>
-                        <label htmlFor="mensaje" className="block text-sm font-medium mb-2">
+                        <label htmlFor="message" className="block text-sm font-medium mb-2">
                           Mensaje
                         </label>
                         <Textarea
-                          id="mensaje"
-                          name="mensaje"
-                          value={formData.mensaje}
-                          onChange={handleChange}
-                          placeholder="Opcionalmente podrás indicarnos el valor de tu plan actual, edad de tus cargas, clínicas o isapres de preferencia, si cuentas con algún seguro complementario, etc."
+                          id="message"
+                          {...register('message')}
+                          placeholder="Opcionalmente, indícanos detalles para ayudarte mejor"
                           rows={4}
-                          className={errors.mensaje ? 'border-destructive' : ''}
                         />
-                        {errors.mensaje && <p className="text-destructive text-xs mt-1">{errors.mensaje}</p>}
+                        {errors.message && <p className="text-destructive text-xs mt-1">{String(errors.message.message)}</p>}
                       </div>
 
                       {/* Submit Button */}
@@ -570,19 +433,7 @@ const Contacto = () => {
 
       <Footer />
 
-      <ConfirmationDialog
 
-        isOpen={showConfirmationDialog}
-
-        onClose={() => {
-
-          setShowConfirmationDialog(false);
-
-          form.reset();
-
-        }}
-
-      />
 
     </div>
 
