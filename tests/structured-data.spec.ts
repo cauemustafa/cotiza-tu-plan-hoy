@@ -37,8 +37,8 @@ for (const route of routes) {
 			.allTextContents();
 		expect(scripts.length).toBeGreaterThan(0);
 
-		// Give client-side scripts a short moment to render (useful for client-only injections)
-		if (route === '/') await page.waitForTimeout(500);
+		// Allow client-side scripts to render and fetch any additional data.
+		if (route === '/') await page.waitForLoadState('networkidle');
 
 		// Parse JSON-LD entries safely
 		const parsed: unknown[] = [];
