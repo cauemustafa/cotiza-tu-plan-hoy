@@ -33,7 +33,7 @@ const SegurosPyme = () => {
         price: p.priceNumber,
         priceCurrency: p.priceCurrency,
       });
-      (schema as any).image = buildImageObjects('logo');
+      schema.image = buildImageObjects('logo');
       return schema;
     });
 

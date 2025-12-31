@@ -1,5 +1,32 @@
 // JSON-LD Structured Data for SEO
 
+// Basic types for structured-data helpers
+export type ImageObject = {
+	'@type': 'ImageObject';
+	contentUrl: string;
+	height: number;
+	width: number;
+	encodingFormat: string;
+};
+
+export type Offer = {
+	'@type': 'Offer';
+	price?: number;
+	priceCurrency?: string;
+	availability?: string;
+};
+
+export type ProductWithOffer = {
+	'@context': string;
+	'@type': 'Product';
+	name: string;
+	description: string;
+	category: string;
+	brand: { '@type': string; name: string };
+	offers: Offer | Offer[];
+	image?: ImageObject[];
+};
+
 // CDN base (override with VITE_CDN_BASE)
 const CDN_BASE =
 	(import.meta.env.VITE_CDN_BASE as string | undefined) ||
@@ -7,7 +34,7 @@ const CDN_BASE =
 const cdn = (path: string) =>
 	`${CDN_BASE}${path.startsWith('/') ? '' : '/'}${path}`;
 
-export const buildImageObjects = (baseName: string) => [
+export const buildImageObjects = (baseName: string): ImageObject[] => [
 	{
 		'@type': 'ImageObject',
 		contentUrl: cdn(`/assets/optimized/${baseName}-192.webp`),
@@ -127,7 +154,7 @@ export const productWithOfferSchema = (product: {
 	price?: number;
 	priceCurrency?: string;
 	availability?: string;
-}) => {
+}): ProductWithOffer => {
 	return {
 		'@context': 'https://schema.org',
 		'@type': 'Product',

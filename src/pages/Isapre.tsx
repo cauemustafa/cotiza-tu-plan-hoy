@@ -185,7 +185,7 @@ const Isapre = () => {
     description: 'Formulario para cotizar planes de Isapre y enviar solicitudes por WhatsApp',
     category: 'Isapre',
   });
-  (isapreProduct as any).image = buildImageObjects('logo');
+  isapreProduct.image = buildImageObjects('logo');
 
   return (
     <div className="min-h-screen flex flex-col">
