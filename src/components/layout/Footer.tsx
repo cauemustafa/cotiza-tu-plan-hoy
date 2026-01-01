@@ -1,12 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, Shield, Award, CheckCircle } from 'lucide-react';
 import Marquee from 'react-fast-marquee';
-import {
-	Carousel,
-	CarouselContent,
-	CarouselItem,
-} from '@/components/ui/carousel';
-import Autoplay from 'embla-carousel-autoplay';
 
 // Partner logos
 import andesSalud from '@/assets/partners/andes-salud.png';
@@ -19,14 +13,46 @@ import integramedica from '@/assets/partners/integramedica.svg';
 import cruzBlanca from '@/assets/partners/cruz-blanca.svg';
 
 const partners = [
-	{ name: 'Andes Salud', logo: andesSalud },
-	{ name: 'Bupa Clínica Antofagasta', logo: bupaAntofagasta },
-	{ name: 'Bupa Clínica Reñaca', logo: bupaRenaca },
-	{ name: 'Bupa Clínica Santiago', logo: bupaSantiago },
-	{ name: 'Clínica Santa María', logo: clinicaSantaMaria },
-	{ name: 'Clínica Dávila', logo: davila },
-	{ name: 'Integramédica', logo: integramedica },
-	{ name: 'Cruz Blanca', logo: cruzBlanca },
+	{
+		name: 'Andes Salud',
+		logo: andesSalud,
+		url: 'https://www.andessalud.cl/',
+	},
+	{
+		name: 'Bupa Clínica Antofagasta',
+		logo: bupaAntofagasta,
+		url: 'https://www.clinicaantofagasta.cl/',
+	},
+	{
+		name: 'Bupa Clínica Reñaca',
+		logo: bupaRenaca,
+		url: 'https://www.clinicarenaca.cl/',
+	},
+	{
+		name: 'Bupa Clínica Santiago',
+		logo: bupaSantiago,
+		url: 'https://www.clinicabupasantiago.cl/',
+	},
+	{
+		name: 'Clínica Santa María',
+		logo: clinicaSantaMaria,
+		url: 'https://www.clinicasantamaria.cl/',
+	},
+	{
+		name: 'Clínica Dávila',
+		logo: davila,
+		url: 'https://www.davila.cl/',
+	},
+	{
+		name: 'Integramédica',
+		logo: integramedica,
+		url: 'https://www.integramedica.cl/',
+	},
+	{
+		name: 'Cruz Blanca',
+		logo: cruzBlanca,
+		url: 'https://www.cruzblanca.cl/',
+	},
 ];
 
 const Footer = () => {
@@ -46,19 +72,26 @@ const Footer = () => {
 					<div className='w-full bg-white py-0'>
 						<Marquee speed={45} gradient={false} pauseOnHover>
 							{partners.map((partner, index) => (
-								<div key={index} className='mx-8'>
-									{' '}
-									{/* mx-8 = espaçamento entre logos */}
-									<div className='w-40 h-20 flex items-center justify-center px-0 py-0'>
-										<img
-											src={partner.logo}
-											alt={partner.name}
-											className='max-w-full max-h-full object-contain'
-											loading='lazy'
-											decoding='async'
-										/>
+								<a
+									key={index}
+									href={partner.url}
+									target='_blank'
+									rel='noopener noreferrer'
+									className='hover:scale-105 transition-transform'
+								>
+									<div className='mx-8'>
+										{/* mx-8 = espaçamento entre logos */}{' '}
+										<div className='w-40 h-20 flex items-center justify-center px-0 py-0'>
+											<img
+												src={partner.logo}
+												alt={partner.name}
+												className='max-w-full max-h-full object-contain'
+												loading='lazy'
+												decoding='async'
+											/>
+										</div>
 									</div>
-								</div>
+								</a>
 							))}
 						</Marquee>
 					</div>
