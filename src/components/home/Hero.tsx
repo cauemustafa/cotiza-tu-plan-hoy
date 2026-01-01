@@ -23,7 +23,7 @@ const Hero = () => {
           className="w-full h-full object-cover"
           width={1920}
           height={864}
-          fetchPriority="high"
+          fetchpriority="high"
           decoding="async"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/80 to-primary/70" />
