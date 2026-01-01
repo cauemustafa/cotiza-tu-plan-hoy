@@ -9,7 +9,6 @@ import StructuredData from "@/components/shared/StructuredData";
 // Lazy load below-the-fold components that use framer-motion heavily
 const HowItWorks = lazy(() => import("@/components/home/HowItWorks"));
 const WhyChooseUs = lazy(() => import("@/components/home/WhyChooseUs"));
-// const Testimonials = lazy(() => import("@/components/home/Testimonials"));
 const FAQ = lazy(() => import("@/components/home/FAQ"));
 const CTASection = lazy(() => import("@/components/home/CTASection"));
 
@@ -25,7 +24,6 @@ const Index = () => {
           <Suspense fallback={<div className="min-h-[300px]" />}>
             <HowItWorks />
             <WhyChooseUs />
-            {/* <Testimonials /> */}
             <FAQ />
             <CTASection />
           </Suspense>

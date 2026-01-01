@@ -43,21 +43,6 @@ export const ServicesSectionSkeleton = () => (
   </section>
 );
 
-export const TestimonialSkeleton = () => (
-  <Card>
-    <CardContent className="pt-6">
-      <div className="flex items-center gap-4 mb-4">
-        <Skeleton className="h-12 w-12 rounded-full" />
-        <div className="flex-1">
-          <Skeleton className="h-5 w-32 mb-2" />
-          <Skeleton className="h-4 w-24" />
-        </div>
-      </div>
-      <Skeleton className="h-20 w-full" />
-    </CardContent>
-  </Card>
-);
-
 export const FAQSkeleton = () => (
   <div className="space-y-4">
     {[1, 2, 3, 4].map((i) => (
