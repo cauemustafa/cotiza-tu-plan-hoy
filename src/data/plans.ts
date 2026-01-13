@@ -88,8 +88,8 @@ export const individualFeatures = [
 export const pymePlans = [
 	{
 		name: 'PYME 50%',
-		price: '$12.411/persona',
-		priceNumber: parsePrice('$12.411/persona'),
+		price: '$12.453/persona',
+		priceNumber: parsePrice('$12.453/persona'),
 		priceCurrency: 'CLP',
 		priceDetail: '0,3133 UF',
 		description: '5 y 350 colaboradores',
@@ -97,19 +97,19 @@ export const pymePlans = [
 	},
 	{
 		name: 'PYME 70%',
-		price: '$23.134/persona',
-		priceNumber: parsePrice('$23.134/persona'),
+		price: '$23.332/persona',
+		priceNumber: parsePrice('$23.332/persona'),
 		priceCurrency: 'CLP',
-		priceDetail: '0,5060 UF',
+		priceDetail: '0,5870 UF',
 		description: '5 y 350 colaboradores',
 		popular: true,
 	},
 	{
 		name: 'PYME 80%',
-		price: '$24.271/persona',
-		priceNumber: parsePrice('$24.271/persona'),
+		price: '$26.925/persona',
+		priceNumber: parsePrice('$26.925/persona'),
 		priceCurrency: 'CLP',
-		priceDetail: '0,6127 UF',
+		priceDetail: '0,6774 UF',
 		description: 'Desde 15 colaboradores',
 		popular: false,
 	},
@@ -121,7 +121,7 @@ export const pymeFeatures = [
 		values: ['50%', '70%', '80%'],
 	},
 	{
-		name: 'Maximo anual por assegurado (UF)',
+		name: 'Máximo anual por assegurado (UF)',
 		values: ['350 UF', '350 UF', '400 UF'],
 	},
 	{
@@ -141,11 +141,11 @@ export const pymeFeatures = [
 		values: [true, true, true],
 	},
 	{
-		name: 'Edad maxima de ingreso',
+		name: 'Edad máxima de ingreso',
 		values: ['69 años', '69 años', '69 años'],
 	},
 	{
-		name: 'Edad maxima de permanencia',
+		name: 'Edad máxima de permanencia',
 		values: ['75 años', '75 años', '75 años'],
 	},
 	{
