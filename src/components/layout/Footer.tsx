@@ -238,7 +238,7 @@ const Footer = () => {
 						className='hover:text-primary-foreground transition-smooth'
 						aria-label='GitHub de Cauê Mustafá'
 					>
-						<p className='flex items-center justify-center gap-2'>
+						<p className='flex items-center justify-center gap-2 mt-2'>
 							Desarrollado por{' '}
 							<span className='hover:scale-105 transition-transform flex gap-2'>
 								Cauê Mustafá

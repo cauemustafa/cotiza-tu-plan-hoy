@@ -7,6 +7,7 @@ import { lazy, Suspense } from "react";
 import GoogleAnalytics from "./components/shared/GoogleAnalytics";
 import ErrorBoundary from "./components/shared/ErrorBoundary";
 import ScrollToTop from "./components/shared/ScrollToTop";
+import ScrollToTopOnNavigate from "./components/shared/ScrollToTopOnNavigate";
 import CookieConsent from "./components/shared/CookieConsent";
 import { PageSkeleton } from "./components/shared/LoadingSkeleton";
 
@@ -31,6 +32,7 @@ const App = () => (
         <BrowserRouter>
           <GoogleAnalytics />
           <Suspense fallback={<PageSkeleton />}>
+            <ScrollToTopOnNavigate />
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/seguros-individuales" element={<SegurosIndividuales />} />
