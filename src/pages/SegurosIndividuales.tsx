@@ -16,7 +16,9 @@ const SegurosIndividuales = () => {
       description: "Serás redirigido a WhatsApp para completar tu cotización"
     });
     setTimeout(() => {
-      window.open("https://wa.me/56928360499", "_blank");
+      const message = `Hola, me gustaría cotizar el plan de seguro individual "${planName}".`;
+      const encodedMessage = encodeURIComponent(message);
+      window.open(`https://wa.me/56928360499?text=${encodedMessage}`, "_blank");
     }, 1500);
   };
 
@@ -105,7 +107,7 @@ const SegurosIndividuales = () => {
               <p className="text-muted-foreground mb-6">
                 Nuestros asesores están listos para ayudarte a encontrar la cobertura perfecta
               </p>
-              <a href="https://wa.me/56928360499" target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/56928360499?text=Hola,%20necesito%20ayuda%20para%20elegir%20un%20plan%20de%20seguro%20individual." target="_blank" rel="noopener noreferrer">
                 <Button size="lg" className="gradient-accent">
                   <Phone className="mr-2 h-5 w-5" />
                   Habla con un Asesor Gratis
